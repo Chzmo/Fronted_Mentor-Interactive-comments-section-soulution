@@ -69,7 +69,7 @@ class createElements{
                                             &emsp;
                                             <a href=""><img src="./images/icon-edit.svg" /> <span>Edit</span></a>`;
                         } else{
-                            user_data += `<a href=""><img src="./images/icon-reply.svg" alt="reply-icon" > <span>Reply</span></a>`;
+                            user_data += `<a href="" id="${Math.random()}" onclick="test(id)"><img src="./images/icon-reply.svg" alt="reply-icon" > <span>Reply</span></a>`;
                         }
 
                         user_data += `
@@ -189,8 +189,9 @@ class UI {
     }
 }
   
-  
-
+const test = (id)=> {
+    console.log(id);
+}
 let http = new XMLHttpRequest();
 
 http.open('get', 'data.json', true);
