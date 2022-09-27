@@ -25,7 +25,7 @@ class createElements{
                     <div class="container__content-right_top-profile_time"><p>${comment.createdAt}</p></div>
                 </div>
                 <div class="container__content-right_top-reply">
-                    <a href="" class="comment_reply" id="${comment.id}"><span><img src="./images/icon-reply.svg" alt="reply-icon" ></span> Reply</a>
+                    <a class="comment_reply" id="${comment.id}"><span><img src="./images/icon-reply.svg" alt="reply-icon" ></span> Reply</a>
                 </div>
                 </div>
                 <div class="container__content-right_bottom">
@@ -69,7 +69,7 @@ class createElements{
                                             &emsp;
                                             <a href=""><img src="./images/icon-edit.svg" /> <span>Edit</span></a>`;
                         } else{
-                            user_data += `<a href="" id="${Math.random()}" onclick="test(id)"><img src="./images/icon-reply.svg" alt="reply-icon" > <span>Reply</span></a>`;
+                            user_data += `<a id="${Math.random()}" onclick="UI.insertReplyField(id)"><img src="./images/icon-reply.svg" alt="reply-icon" > <span>Reply</span></a>`;
                         }
 
                         user_data += `
@@ -87,7 +87,6 @@ class createElements{
 
     static CreateInputField(image){
         return `
-        <form class="container__form br-1" id="form_comment">
             <div class="container__form-img">
                 <img src="${image}" alt="">
             </div>
@@ -97,7 +96,7 @@ class createElements{
             <div class="container__reply-button">
                 <input type="submit" class="btn " id="btn_submit" value="${'SEND'}">
             </div>
-        </form> `;
+        `;
     }
 }
 
@@ -162,7 +161,9 @@ class UI {
             }
         }
 
+        user_data += `<form class="container__form br-1" id="form_comment">`;
         user_data += createElements.CreateInputField(data.currentUser.image.png);
+        user_data += `</form>`;
         document.querySelector('.container').innerHTML = user_data;
     }
 
@@ -178,6 +179,19 @@ class UI {
         container.insertBefore(div, form);
 
     }
+
+    static insertReplyField(id){
+        let inputField = document.createElement('form');
+        inputField.classList = 'container__form br-1';
+        inputField.innerHTML = createElements.CreateInputField('./images/avatars/image-juliusomo.png');
+        let element = document.getElementById(id);
+        let parentElement = element.parentElement.parentElement.parentElement.parentElement.parentElement;
+        let siblingElement = element.parentElement.parentElement.parentElement.parentElement.nextElementSibling;
+        
+
+        parentElement.insertBefore(inputField, siblingElement);
+    
+    }
     // static deleteBook(el) {
     //   if(el.classList.contains('delete')) {
     //     el.parentElement.parentElement.remove();
@@ -188,10 +202,7 @@ class UI {
        document.querySelector('#reply_comment').value = '';
     }
 }
-  
-const test = (id)=> {
-    console.log(id);
-}
+
 let http = new XMLHttpRequest();
 
 http.open('get', 'data.json', true);
