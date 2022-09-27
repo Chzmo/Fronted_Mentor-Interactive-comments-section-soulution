@@ -13,19 +13,19 @@ class Store {
     }
   
     static addComment(comment) {
-      let data = Store.getDataComments();
-      data.comments.push(comment);
-      localStorage.setItem('commentsData', JSON.stringify(data));
-
-      console.log('zatheka')
+        let data = Store.getDataComments();
+        data.comments.push(comment);
+        localStorage.setItem('commentsData', JSON.stringify(data));
+        return 0;
     }
 
     static addReply(reply) {
         const comments = Store.getDataComments();
         comments.push(reply);
         localStorage.setItem('commentsData', JSON.stringify(comments));
-      }
-  
+    }
+
+
     // static removeComment(isbn) {
     //   const books = Store.getBooks();
   
@@ -46,6 +46,7 @@ class UI {
     static displayComments() {
         let data = Store.getDataComments();
         let user_data = ''
+        let container = document.querySelector('.container');
         for(let comment of data.comments){
             user_data += `
             <div class="container__content br-1">
@@ -81,8 +82,8 @@ class UI {
             </div>
             `;
 
-            if (comment.replies != null){
-                user_data += `<div class="comment mt-2 mb-2">`;
+            if (comment.replies !== null){
+                user_data += `<div class="comment">`;
                 for(let reply of comment.replies){
                     user_data +=`                    
                         <div class="container__content br-1 ">
@@ -149,6 +150,48 @@ class UI {
         document.querySelector('.container').innerHTML = user_data;
     }
 
+
+    static insertComment(comment){
+        const container = document.querySelector('.container');
+        let form = document.querySelector('#form_comment');
+        let div = document.createElement('div');
+        div.classList = "container__content br-1";
+        let child = `
+        <div class="container__content-left br-2">
+            <div class="container__content-left_plus">
+            <a href=""><img src="./images/icon-plus.svg" alt=""></a>
+            </div>
+            <div class="container__content-left_score">
+            <P>${comment.score}</P>
+            </div>
+            <div class="container__content-left_minus">
+            <a href=""><img src="./images/icon-minus.svg" alt=""></a>
+            </div>
+        </div>
+
+        <div class="container__content-right">
+            <div class="container__content-right_top">
+            <div class="container__content-right_top-profile">
+                <div class="container__content-right_top-profile_img">
+                <img src="${comment.user.image.png}" alt="amyrobson">
+                </div>
+                <div class="container__content-right_top-profile_username"><p>${comment.user.username}</p></div>
+                <div class="container__content-right_top-profile_time"><p>${comment.createdAt}</p></div>
+            </div>
+            <div class="container__content-right_top-reply">
+                <a href=""><span><img src="./images/icon-reply.svg" alt="reply-icon" ></span> Reply</a>
+            </div>
+            </div>
+            <div class="container__content-right_bottom">
+            <p>${comment.content}</p>
+            </div>
+        </div>
+        `;
+
+        div.innerHTML = child;
+        container.insertBefore(div, form);
+
+    }
     // static deleteBook(el) {
     //   if(el.classList.contains('delete')) {
     //     el.parentElement.parentElement.remove();
@@ -167,11 +210,9 @@ class UI {
     //   setTimeout(() => document.querySelector('.alert').remove(), 3000);
     // }
   
-    // static clearFields() {
-    //   document.querySelector('#title').value = '';
-    //   document.querySelector('#author').value = '';
-    //   document.querySelector('#isbn').value = '';
-    // }
+    static clearFields() {
+       document.querySelector('#reply_comment').value = '';
+    }
 }
   
   
@@ -216,10 +257,19 @@ http.onload = function(){
                         },
                         "username": "juliusomo"
                     },
-                    "replies": []
+                    "replies": null
                 }
+                let res = Store.addComment(userComment);
+                if (res === 0){
+                    //clear fields
+                    UI.clearFields();
 
-                Store.addComment(userComment);
+                    //Add comment to UI
+                    UI.insertComment(userComment);
+                }else{
+                    alert('something happened');
+                };
+
             //     const book = new Book(title, author, isbn);
         
             //     //Add book to UI

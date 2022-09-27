@@ -45,18 +45,6 @@ body {
   border-radius: 0.9rem;
 }
 
-.mt-1 {
-  margin-top: 0.5rem;
-}
-
-.mt-2 {
-  margin-top: 1rem;
-}
-
-.mb-2 {
-  margin-bottom: 1rem;
-}
-
 .red {
   color: var(--Soft-Red);
 }
@@ -83,6 +71,7 @@ body {
   padding: 10px 10px;
   display: flex;
   flex-direction: column;
+  gap: 1rem;
 }
 .container .container__content {
   display: flex;
