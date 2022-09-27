@@ -65,6 +65,14 @@ body {
   cursor: pointer;
 }
 
+.you {
+  font-size: 12px;
+  color: var(--White);
+  background: var(--Moderate-blue);
+  padding: 0.3em;
+  border-radius: 3px;
+}
+
 .container {
   max-width: 760px;
   margin: 0 auto;

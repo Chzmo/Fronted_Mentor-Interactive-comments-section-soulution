@@ -58,7 +58,16 @@ class createElements{
                         <div class="container__content-right_top-profile_img">
                             <img src=".${reply.user.image.png}" alt="amyrobson">
                         </div>
-                        <div class="container__content-right_top-profile_username"><p>${reply.user.username}</p></div>
+                        <div class="container__content-right_top-profile_username">
+                            <p>${reply.user.username}`; 
+
+                            if (data.currentUser.username === reply.user.username){
+                                user_data += ` <span class="you">You</span>`;
+                            }
+                            
+                            user_data +=`
+                            </p>
+                        </div>
                         <div class="container__content-right_top-profile_time"><p>${reply.createdAt}</p></div>
                         </div>
                         <div class="container__content-right_top-reply">
