@@ -1,8 +1,9 @@
 // Create HTML Elements
 class createElements{
 
-    static createComment(comment){
-        return `
+    static createComment(comment, data){
+        let user_data = '';
+        user_data += `
             <div class="container__content-left br-2">
                 <div class="container__content-left_plus">
                 <a href=""><img src="./images/icon-plus.svg" alt=""></a>
@@ -21,11 +22,31 @@ class createElements{
                     <div class="container__content-right_top-profile_img">
                     <img src="${comment.user.image.png}" alt="amyrobson">
                     </div>
-                    <div class="container__content-right_top-profile_username"><p>${comment.user.username}</p></div>
+                    <div class="container__content-right_top-profile_username">
+                    
+                    <p>${comment.user.username}`; 
+
+                            if (data.currentUser.username === comment.user.username){
+                                user_data += ` <span class="you">You</span>`;
+                            }
+                            
+                            user_data +=`
+
+                    </p></div>
                     <div class="container__content-right_top-profile_time"><p>${comment.createdAt}</p></div>
                 </div>
                 <div class="container__content-right_top-reply">
-                    <a class="comment_reply" id="${comment.id}"><span><img src="./images/icon-reply.svg" alt="reply-icon" ></span> Reply</a>
+                `;
+                        
+                if (data.currentUser.username === comment.user.username){
+                    user_data +=    `<a href="" class="red"><span><img src="./images/icon-delete.svg" /></span> Delete</a> 
+                                    &emsp;
+                                    <a href=""><img src="./images/icon-edit.svg" /> <span>Edit</span></a>`;
+                } else{
+                    user_data += `<a id="${comment.id}" onclick="UI.insertReplyField(id)"><img src="./images/icon-reply.svg" alt="reply-icon" > <span>Reply</span></a>`;
+                }
+
+                user_data += `
                 </div>
                 </div>
                 <div class="container__content-right_bottom">
@@ -33,6 +54,8 @@ class createElements{
                 </div>
             </div>
         `;
+
+        return user_data;
     }
 
     static createReply(reply, data){
@@ -78,7 +101,7 @@ class createElements{
                                             &emsp;
                                             <a href=""><img src="./images/icon-edit.svg" /> <span>Edit</span></a>`;
                         } else{
-                            user_data += `<a id="${Math.random()}" onclick="UI.insertReplyField(id)"><img src="./images/icon-reply.svg" alt="reply-icon" > <span>Reply</span></a>`;
+                            user_data += `<a id="${reply.id}" onclick="UI.insertReplyField(id)"><img src="./images/icon-reply.svg" alt="reply-icon" > <span>Reply</span></a>`;
                         }
 
                         user_data += `
@@ -158,7 +181,7 @@ class UI {
         let user_data = '';
         for(let comment of data.comments){
             user_data += `<div class="container__content br-1">`;
-            user_data += createElements.createComment(comment);
+            user_data += createElements.createComment(comment, data);
             user_data += `</div>`;
 
             if (comment.replies !== null){
@@ -178,11 +201,12 @@ class UI {
 
 
     static insertComment(comment){
+        let data = Store.getDataComments();
         const container = document.querySelector('.container');
         let form = document.querySelector('#form_comment');
         let div = document.createElement('div');
         div.classList = "container__content br-1";
-        let child = createElements.createComment(comment);
+        let child = createElements.createComment(comment, data);
 
         div.innerHTML = child;
         container.insertBefore(div, form);
