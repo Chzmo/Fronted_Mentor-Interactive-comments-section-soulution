@@ -33,7 +33,7 @@ class createElements{
                             user_data +=`
 
                     </p></div>
-                    <div class="container__content-right_top-profile_time"><p>${comment.createdAt}</p></div>
+                    <div class="container__content-right_top-profile_time"><p>${moment(comment.createdAt, "YYYYMMDD").fromNow()}</p></div>
                 </div>
                 <div class="container__content-right_top-reply">
                 `;
@@ -60,7 +60,7 @@ class createElements{
 
     static createReply(reply, data){
         let user_data = '';
-
+        
         user_data +=`                    
             <div class="container__content br-1 ">
                 <div class="container__content-left br-2">
@@ -91,7 +91,7 @@ class createElements{
                             user_data +=`
                             </p>
                         </div>
-                        <div class="container__content-right_top-profile_time"><p>${reply.createdAt}</p></div>
+                        <div class="container__content-right_top-profile_time"><p>${moment(reply.createdAt, "YYYYMMDD").fromNow()}</p></div>
                         </div>
                         <div class="container__content-right_top-reply">
                         `;
@@ -257,7 +257,7 @@ http.onload = function(){
         document.querySelector('#form_comment').addEventListener('submit', (e) => {
             //prevent actual Values
             e.preventDefault();
-            
+            console.log(new Date());
             // Get comment form values
             let comment = document.querySelector('#reply_comment').value;
 
@@ -267,7 +267,7 @@ http.onload = function(){
                 userComment = {
                     "id": Math.floor((Math.random() + Math.random()) * 3456),
                     "content": comment,
-                    "createdAt": Date.now(),
+                    "createdAt": new Date(),
                     "score": 0,
                     "user": {
                         "image": { 
