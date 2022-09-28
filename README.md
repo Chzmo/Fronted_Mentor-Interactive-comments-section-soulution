@@ -35,7 +35,7 @@ Users should be able to:
 
 ### Links
 
-- Solution URL: [Add solution URL here](https://your-solution-url.com)
+- Solution URL: [solution URL](https://github.com/Chzmo/Fronted_Mentor-Interactive-comments-section-soulution)
 - Live Site URL: [Live site](https://boisterous-biscotti-f94f09.netlify.app/)
 
 ## My process
