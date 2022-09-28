@@ -41,7 +41,7 @@ class createElements{
                 `;
                         
                 if (data.currentUser.username === comment.user.username){
-                    user_data +=    `<a class="red"><span><img src="./images/icon-delete.svg" /></span> Delete</a> 
+                    user_data +=    `<a id="${comment.id}" class="red" onclick="removeElements.removeComment(id)"><span><img src="./images/icon-delete.svg" /></span> Delete</a> 
                                     &emsp;
                                     <a ><img src="./images/icon-edit.svg" /> <span>Edit</span></a>`;
                 } else{
@@ -99,7 +99,7 @@ class createElements{
                         `;
                         
                         if (data.currentUser.username === reply.user.username){
-                            user_data +=    `<a class="red"><span><img src="./images/icon-delete.svg" /></span> Delete</a> 
+                            user_data +=    `<a id="${reply.id}" class="red" onclick="removeElements.removeComment(id)"><span><img src="./images/icon-delete.svg" /></span> Delete</a> 
                                             &emsp;
                                             <a href=""><img src="./images/icon-edit.svg" /> <span>Edit</span></a>`;
                         } else{
@@ -131,6 +131,14 @@ class createElements{
                 <input type="submit" class="btn " id="btn_submit" value="${'SEND'}">
             </div>
         `;
+    }
+}
+
+// remove HTML Elements
+class removeElements{
+    
+    static removeComment(id){
+        alert(id);
     }
 }
 
@@ -290,12 +298,6 @@ http.onload = function(){
                     alert('something happened');
                 };
             }
-        });
-
-        //Delete Comments from event
-        document.querySelector('.red').addEventListener('click', (e) =>{
-            e.preventDefault();
-            console.log(e.target);
         });
     }
 }
