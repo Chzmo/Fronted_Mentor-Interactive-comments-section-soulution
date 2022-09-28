@@ -3,7 +3,7 @@ class createElements{
 
     static createComment(comment, data){
         let date  = new Date(comment.createdAt);
-        console.log(date);
+
         let user_data = '';
         user_data += `
             <div class="container__content-left br-2">
@@ -41,9 +41,9 @@ class createElements{
                 `;
                         
                 if (data.currentUser.username === comment.user.username){
-                    user_data +=    `<a href="" class="red"><span><img src="./images/icon-delete.svg" /></span> Delete</a> 
+                    user_data +=    `<a class="red"><span><img src="./images/icon-delete.svg" /></span> Delete</a> 
                                     &emsp;
-                                    <a href=""><img src="./images/icon-edit.svg" /> <span>Edit</span></a>`;
+                                    <a ><img src="./images/icon-edit.svg" /> <span>Edit</span></a>`;
                 } else{
                     user_data += `<a id="${comment.id}" onclick="UI.insertReplyField(id)"><img src="./images/icon-reply.svg" alt="reply-icon" > <span>Reply</span></a>`;
                 }
@@ -99,7 +99,7 @@ class createElements{
                         `;
                         
                         if (data.currentUser.username === reply.user.username){
-                            user_data +=    `<a href="" class="red"><span><img src="./images/icon-delete.svg" /></span> Delete</a> 
+                            user_data +=    `<a class="red"><span><img src="./images/icon-delete.svg" /></span> Delete</a> 
                                             &emsp;
                                             <a href=""><img src="./images/icon-edit.svg" /> <span>Edit</span></a>`;
                         } else{
@@ -258,8 +258,7 @@ http.onload = function(){
         //Get Comments form UI
         document.querySelector('#form_comment').addEventListener('submit', (e) => {
             //prevent actual Values
-            e.preventDefault();
-            console.log(new Date());
+            //e.preventDefault();
             // Get comment form values
             let comment = document.querySelector('#reply_comment').value;
 
@@ -291,6 +290,12 @@ http.onload = function(){
                     alert('something happened');
                 };
             }
+        });
+
+        //Delete Comments from event
+        document.querySelector('.red').addEventListener('click', (e) =>{
+            e.preventDefault();
+            console.log(e.target);
         });
     }
 }
