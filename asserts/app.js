@@ -2,6 +2,8 @@
 class createElements{
 
     static createComment(comment, data){
+        let date  = new Date(comment.createdAt);
+        console.log(date);
         let user_data = '';
         user_data += `
             <div class="container__content-left br-2">
@@ -33,7 +35,7 @@ class createElements{
                             user_data +=`
 
                     </p></div>
-                    <div class="container__content-right_top-profile_time"><p>${moment(comment.createdAt, "YYYYMMDD").fromNow()}</p></div>
+                    <div class="container__content-right_top-profile_time"><p>${moment(date, "YYYYMMDD").fromNow()}</p></div>
                 </div>
                 <div class="container__content-right_top-reply">
                 `;
@@ -288,7 +290,6 @@ http.onload = function(){
                 }else{
                     alert('something happened');
                 };
-            
             }
         });
     }
