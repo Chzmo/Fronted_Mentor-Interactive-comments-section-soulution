@@ -99,7 +99,7 @@ class createElements{
                         `;
                         
                         if (data.currentUser.username === reply.user.username){
-                            user_data +=    `<a id="${reply.id}" class="red" onclick="UI.deleteReply(id)"><span><img src="./images/icon-delete.svg" /></span> Delete</a> 
+                            user_data +=    `<a id="${reply.id}" class="red" onclick="UI.removeReply(id)"><span><img src="./images/icon-delete.svg" /></span> Delete</a> 
                                             &emsp;
                                             <a href=""><img src="./images/icon-edit.svg" /> <span>Edit</span></a>`;
                         } else{
@@ -171,18 +171,28 @@ class Store {
 
         localStorage.setItem('commentsData', JSON.stringify(commentsData));
     }
-    // static removeComment(isbn) {
-    //   const books = Store.getBooks();
-  
-    //   books.forEach((book, index) => {
-    //     if(book.isbn === isbn) {
-    //       books.splice(index, 1);
-    //     }
-    //   });
-  
-    //   localStorage.setItem('books', JSON.stringify(books));
-    // 
-    //}
+
+    static deleteReply(id){
+        let replyId = parseInt(id);
+        let commentsData = Store.getDataComments();
+        // commentsData.comments.forEach((comment, index) => {
+        //     console.log(index,id, comment);
+        // });
+        //console.log(commentsData.comments[1]);
+
+        for(let i = 0; i < commentsData.comments.length; i++){
+            if(commentsData.comments[i].replies !== null){
+                for (let j = 0; j < commentsData.comments[i].replies.length; j++){
+                    if(commentsData.comments[i].replies[j].id === replyId){
+                        commentsData.comments[i].replies.splice(j, 1);
+                        //console.log(commentsData.comments[i].replies[j]);
+                    }
+                }
+            }
+        }
+
+        localStorage.setItem('commentsData', JSON.stringify(commentsData));   
+    }
 }
 
 // UI Class: Handle UI Tasks
@@ -237,6 +247,13 @@ class UI {
 
     static removeComment(id){
         Store.deleteComment(id);
+        let element = document.getElementById(id);
+        let parentEl = element.parentElement.parentElement.parentElement.parentElement;
+        parentEl.remove();
+    }
+
+    static removeReply(id){
+        Store.deleteReply(id);
         let element = document.getElementById(id);
         let parentEl = element.parentElement.parentElement.parentElement.parentElement;
         parentEl.remove();
