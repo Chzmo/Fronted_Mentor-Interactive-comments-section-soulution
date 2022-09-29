@@ -41,7 +41,7 @@ class createElements{
                 `;
                         
                 if (data.currentUser.username === comment.user.username){
-                    user_data +=    `<a id="${comment.id}" class="red" onclick="removeElements.removeComment(id)"><span><img src="./images/icon-delete.svg" /></span> Delete</a> 
+                    user_data +=    `<a id="${comment.id}" class="red" onclick="UI.removeComment(id)"><span><img src="./images/icon-delete.svg" /></span> Delete</a> 
                                     &emsp;
                                     <a ><img src="./images/icon-edit.svg" /> <span>Edit</span></a>`;
                 } else{
@@ -99,7 +99,7 @@ class createElements{
                         `;
                         
                         if (data.currentUser.username === reply.user.username){
-                            user_data +=    `<a id="${reply.id}" class="red" onclick="removeElements.removeComment(id)"><span><img src="./images/icon-delete.svg" /></span> Delete</a> 
+                            user_data +=    `<a id="${reply.id}" class="red" onclick="UI.deleteReply(id)"><span><img src="./images/icon-delete.svg" /></span> Delete</a> 
                                             &emsp;
                                             <a href=""><img src="./images/icon-edit.svg" /> <span>Edit</span></a>`;
                         } else{
@@ -134,13 +134,6 @@ class createElements{
     }
 }
 
-// remove HTML Elements
-class removeElements{
-    
-    static removeComment(id){
-        alert(id);
-    }
-}
 
 //Store Class: Handles Storage
 class Store {
@@ -168,7 +161,16 @@ class Store {
         localStorage.setItem('commentsData', JSON.stringify(comments));
     }
 
+    static deleteComment(id){
+        let commentsData = Store.getDataComments();
+        commentsData.comments.forEach((comment, index) => {
+            if(parseInt(comment.id) === parseInt(id)){
+                commentsData.comments.splice(index, 1)
+            }
+        });
 
+        localStorage.setItem('commentsData', JSON.stringify(commentsData));
+    }
     // static removeComment(isbn) {
     //   const books = Store.getBooks();
   
@@ -228,13 +230,16 @@ class UI {
         inputField.classList = 'container__form br-1';
         inputField.innerHTML = createElements.CreateInputField('./images/avatars/image-juliusomo.png');
         let element = document.getElementById(id);
-        let parentElement = element.parentElement.parentElement.parentElement.parentElement.parentElement;
+        let parentEl = element.parentElement.parentElement.parentElement.parentElement.parentElement;
         let siblingElement = element.parentElement.parentElement.parentElement.parentElement.nextElementSibling;
-        
+        parentEl.insertBefore(inputField, siblingElement);
+    }
 
-        
-        parentElement.insertBefore(inputField, siblingElement);
-    
+    static removeComment(id){
+        Store.deleteComment(id);
+        let element = document.getElementById(id);
+        let parentEl = element.parentElement.parentElement.parentElement.parentElement;
+        parentEl.remove();
     }
     // static deleteBook(el) {
     //   if(el.classList.contains('delete')) {
