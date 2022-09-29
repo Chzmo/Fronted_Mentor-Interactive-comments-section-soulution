@@ -289,7 +289,7 @@ http.onload = function(){
         //Get Comments form UI
         document.querySelector('#form_comment').addEventListener('submit', (e) => {
             //prevent actual Values
-            //e.preventDefault();
+            e.preventDefault();
             // Get comment form values
             let comment = document.querySelector('#reply_comment').value;
 
