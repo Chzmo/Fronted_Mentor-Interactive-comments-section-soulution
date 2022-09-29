@@ -77,7 +77,7 @@ Use this section to outline areas that you want to continue focusing on in futur
 
 ### Useful resources
 
-- [Stackoverflow](https://stackoverflow.com/questions/30121240/javascript-library-that-manipulates-dates-like-carbon) - This helped me to get information on how I can format the dates like carbon library in Laravel eg: 2days ago.
+- [Stackoverflow](https://stackoverflow.com/questions/30121240/javascript-library-that-manipulates-dates-like-carbon) - This helped me to get information on how I can format the dates like carbon library in Laravel eg: **2days ago**.
 
 ## Author
 
