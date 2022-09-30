@@ -1,3 +1,75 @@
+//Store Class: Handles Storage
+class Store {
+
+    static getDataComments() {
+      let commentsData;
+      if(localStorage.getItem('commentsData') === null) {
+        commentsData = null;
+      } else {
+        commentsData = JSON.parse(localStorage.getItem('commentsData'));
+      }
+      return commentsData;
+    }
+  
+    static addComment(comment) {
+        let data = Store.getDataComments();
+        data.comments.push(comment);
+        localStorage.setItem('commentsData', JSON.stringify(data));
+        return 0;
+    }
+
+    static addReply(reply) {
+        const comments = Store.getDataComments();
+        comments.push(reply);
+        localStorage.setItem('commentsData', JSON.stringify(comments));
+    }
+
+    static deleteComment(id){
+        let commentsData = Store.getDataComments();
+        commentsData.comments.forEach((comment, index) => {
+            if(parseInt(comment.id) === parseInt(id)){
+                commentsData.comments.splice(index, 1)
+            }
+        });
+
+        localStorage.setItem('commentsData', JSON.stringify(commentsData));
+    }
+
+    static deleteReply(id){
+        let replyId = parseInt(id);
+        let commentsData = Store.getDataComments();
+        // commentsData.comments.forEach((comment, index) => {
+        //     console.log(index,id, comment);
+        // });
+        //console.log(commentsData.comments[1]);
+
+        for(let i = 0; i < commentsData.comments.length; i++){
+            if(commentsData.comments[i].replies !== null){
+                for (let j = 0; j < commentsData.comments[i].replies.length; j++){
+                    if(commentsData.comments[i].replies[j].id === replyId){
+                        commentsData.comments[i].replies.splice(j, 1);
+                        //console.log(commentsData.comments[i].replies[j]);
+                    }
+                }
+            }
+        }
+        localStorage.setItem('commentsData', JSON.stringify(commentsData));   
+    }
+
+    static changeScore(id, UIscore){
+        let commentsData = Store.getDataComments();
+        for(let i = 0; i < commentsData.comments.length; i++){
+            if(parseInt(commentsData.comments[i].id) === parseInt(id)){
+                UIscore = parseInt(UIscore) + parseInt(commentsData.comments[i].score);
+                commentsData.comments[i].score = UIscore;   
+            }
+        }
+        localStorage.setItem('commentsData', JSON.stringify(commentsData)); 
+        return UIscore;
+    }
+}
+
+
 // Create HTML Elements
 class createElements{
 
@@ -8,13 +80,13 @@ class createElements{
         user_data += `
             <div class="container__content-left br-2">
                 <div class="container__content-left_plus">
-                <a href=""><img src="./images/icon-plus.svg" alt=""></a>
+                <a id="${comment.id}" onclick="UI.CommentScore(id, 1)"><img src="./images/icon-plus.svg" alt=""></a>
                 </div>
                 <div class="container__content-left_score">
                 <P>${comment.score}</P>
                 </div>
                 <div class="container__content-left_minus">
-                <a href=""><img src="./images/icon-minus.svg" alt=""></a>
+                <a id="${comment.id}" onclick="UI.CommentScore(id, -1)"><img src="./images/icon-minus.svg" alt=""></a>
                 </div>
             </div>
 
@@ -135,65 +207,7 @@ class createElements{
 }
 
 
-//Store Class: Handles Storage
-class Store {
 
-    static getDataComments() {
-      let commentsData;
-      if(localStorage.getItem('commentsData') === null) {
-        commentsData = null;
-      } else {
-        commentsData = JSON.parse(localStorage.getItem('commentsData'));
-      }
-      return commentsData;
-    }
-  
-    static addComment(comment) {
-        let data = Store.getDataComments();
-        data.comments.push(comment);
-        localStorage.setItem('commentsData', JSON.stringify(data));
-        return 0;
-    }
-
-    static addReply(reply) {
-        const comments = Store.getDataComments();
-        comments.push(reply);
-        localStorage.setItem('commentsData', JSON.stringify(comments));
-    }
-
-    static deleteComment(id){
-        let commentsData = Store.getDataComments();
-        commentsData.comments.forEach((comment, index) => {
-            if(parseInt(comment.id) === parseInt(id)){
-                commentsData.comments.splice(index, 1)
-            }
-        });
-
-        localStorage.setItem('commentsData', JSON.stringify(commentsData));
-    }
-
-    static deleteReply(id){
-        let replyId = parseInt(id);
-        let commentsData = Store.getDataComments();
-        // commentsData.comments.forEach((comment, index) => {
-        //     console.log(index,id, comment);
-        // });
-        //console.log(commentsData.comments[1]);
-
-        for(let i = 0; i < commentsData.comments.length; i++){
-            if(commentsData.comments[i].replies !== null){
-                for (let j = 0; j < commentsData.comments[i].replies.length; j++){
-                    if(commentsData.comments[i].replies[j].id === replyId){
-                        commentsData.comments[i].replies.splice(j, 1);
-                        //console.log(commentsData.comments[i].replies[j]);
-                    }
-                }
-            }
-        }
-
-        localStorage.setItem('commentsData', JSON.stringify(commentsData));   
-    }
-}
 
 // UI Class: Handle UI Tasks
 class UI {
@@ -250,6 +264,16 @@ class UI {
         let element = document.getElementById(id);
         let parentEl = element.parentElement.parentElement.parentElement.parentElement;
         parentEl.remove();
+    }
+
+    static CommentScore( id, UIscore){
+        //let dataComments = Store.getDataComments();
+        UIscore = Store.changeScore(id, UIscore);
+        UIscore = parseInt(UIscore);
+        let parentEl = getElementById(id);
+        // parentEl = parentEl.parentElement.parentElement;
+        // parentEl.remove;
+        console.log(parentEl);
     }
 
     static removeReply(id){
