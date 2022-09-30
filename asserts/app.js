@@ -80,13 +80,13 @@ class createElements{
         user_data += `
             <div class="container__content-left br-2">
                 <div class="container__content-left_plus">
-                <a id="${comment.id}" onclick="UI.CommentScore(id, 1)"><img src="./images/icon-plus.svg" alt=""></a>
+                <a id="plus_${comment.id}" onclick="UI.CommentScore(id, 1)"><img src="./images/icon-plus.svg" alt=""></a>
                 </div>
                 <div class="container__content-left_score">
-                <P>${comment.score}</P>
+                <P id="score_${comment.id}">${comment.score}</P>
                 </div>
                 <div class="container__content-left_minus">
-                <a id="${comment.id}" onclick="UI.CommentScore(id, -1)"><img src="./images/icon-minus.svg" alt=""></a>
+                <a id="minus_${comment.id}" onclick="UI.CommentScore(id, -1)"><img src="./images/icon-minus.svg" alt=""></a>
                 </div>
             </div>
 
@@ -267,13 +267,46 @@ class UI {
     }
 
     static CommentScore( id, UIscore){
-        //let dataComments = Store.getDataComments();
-        UIscore = Store.changeScore(id, UIscore);
+        let score = UIscore;
+        let currentEl = document.querySelector('#'+id);
+        let parentEl = currentEl.parentElement.parentElement.parentElement;
+        
+        UIscore = Store.changeScore(id.match(/\d+/)[0], UIscore);
         UIscore = parseInt(UIscore);
-        let parentEl = getElementById(id);
-        // parentEl = parentEl.parentElement.parentElement;
-        // parentEl.remove;
-        console.log(parentEl);
+        
+        if (parseInt(score) > 0){
+            let prevElement = parentEl.previousSibling;
+            if (prevElement !== null){
+                let prevScore = prevElement.children[0].children[1].children[0].innerHTML;
+                if (parseInt(prevScore) < parseInt(UIscore)){
+                    let container = parentEl.parentElement;
+                    container.insertBefore(parentEl, prevElement);
+                } else{
+                    prevElement = parentEl.previousSibling.previousSibling;
+                    if (prevElement !== null){
+                        let prevScore = prevElement.children[0].children[1].children[0].innerHTML; 
+                        if (parseInt(prevScore) < parseInt(UIscore)){
+                            let container = parentEl.parentElement;
+                            container.insertBefore(parentEl, prevElement);
+                        }
+                    }
+                }
+            }
+        } else{
+            let NextEl = parentEl.nextElementSibling;
+            if(NextEl.nodeName === 'FORM' ){
+                parentEl.children[0].children[1].children[0].innerHTML = UIscore;
+            } else if (NextEl !== null ){
+                let nextScore = NextEl.children[0].children[1].children[0].innerHTML;
+                if (parseInt(nextScore) > parseInt(UIscore)){
+                    let container = parentEl.parentElement;
+                    container.insertBefore(NextEl, parentEl);
+                }
+            }
+        }
+
+        parentEl.children[0].children[1].children[0].innerHTML = UIscore;
+        
     }
 
     static removeReply(id){
