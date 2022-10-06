@@ -1,3 +1,5 @@
+let replyForm = false;
+
 //Store Class: Handles Storage
 class Store {
 
@@ -251,16 +253,35 @@ class UI {
 
     static insertReplyField(id){
         let inputField = document.createElement('form');
-        inputField.classList = 'container__form br-1';
+        inputField.classList = 'container__form br-1 container__form-reply';
         inputField.innerHTML = createElements.CreateInputField('./images/avatars/image-juliusomo.png');
         let element = document.getElementById(id);
         let parentEl = element.parentElement.parentElement.parentElement.parentElement.parentElement;
         let siblingElement = element.parentElement.parentElement.parentElement.parentElement.nextElementSibling;
-        parentEl.insertBefore(inputField, siblingElement);
+        if (replyForm == false){  
+            parentEl.insertBefore(inputField, siblingElement);
+        }else{
+            let form_input = document.querySelector('.container__form-reply');
+            form_input.remove();
+            let inputField = document.createElement('form');
+            inputField.classList = 'container__form br-1 container__form-reply';
+            inputField.innerHTML = createElements.CreateInputField('./images/avatars/image-juliusomo.png');
+            let element = document.getElementById(id);
+            let parentEl = element.parentElement.parentElement.parentElement.parentElement.parentElement;
+            let siblingElement = element.parentElement.parentElement.parentElement.parentElement.nextElementSibling;
+            parentEl.insertBefore(inputField, siblingElement);
+        }
+        replyForm = true
     }
 
     static removeComment(id){
         Store.deleteComment(id);
+        let element = document.getElementById(id);
+        let parentEl = element.parentElement.parentElement.parentElement.parentElement;
+        parentEl.remove();
+    }
+
+    static EditComment(id){
         let element = document.getElementById(id);
         let parentEl = element.parentElement.parentElement.parentElement.parentElement;
         parentEl.remove();
