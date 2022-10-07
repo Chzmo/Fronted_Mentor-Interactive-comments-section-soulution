@@ -1,3 +1,5 @@
+// const { element } = require("prop-types");
+
 let replyForm = false;
 
 //Store Class: Handles Storage
@@ -117,7 +119,7 @@ class createElements{
                 if (data.currentUser.username === comment.user.username){
                     user_data +=    `<a id="${comment.id}" class="red" onclick="UI.removeComment(id)"><span><img src="./images/icon-delete.svg" /></span> Delete</a> 
                                     &emsp;
-                                    <a ><img src="./images/icon-edit.svg" /> <span>Edit</span></a>`;
+                                    <a id="reply_${comment.id}" onclick="UI.editReply(id)" ><img src="./images/icon-edit.svg" /> <span>Edit</span></a>`;
                 } else{
                     user_data += `<a id="${comment.id}" onclick="UI.insertReplyField(id)"><img src="./images/icon-reply.svg" alt="reply-icon" > <span>Reply</span></a>`;
                 }
@@ -175,7 +177,7 @@ class createElements{
                         if (data.currentUser.username === reply.user.username){
                             user_data +=    `<a id="${reply.id}" class="red" onclick="UI.removeReply(id)"><span><img src="./images/icon-delete.svg" /></span> Delete</a> 
                                             &emsp;
-                                            <a href=""><img src="./images/icon-edit.svg" /> <span>Edit</span></a>`;
+                                            <a ><img src="./images/icon-edit.svg" /> <span>Edit</span></a>`;
                         } else{
                             user_data += `<a id="${reply.id}" onclick="UI.insertReplyField(id)"><img src="./images/icon-reply.svg" alt="reply-icon" > <span>Reply</span></a>`;
                         }
@@ -193,7 +195,7 @@ class createElements{
         return user_data;
     }
 
-    static CreateInputField(image){
+    static CreateInputField(image, info){
         return `
             <div class="container__form-img">
                 <img src="${image}" alt="">
@@ -202,7 +204,7 @@ class createElements{
                 <input class="br-1" type="textarea" name="reply" id="reply_comment" placeholder="Add a Comment" required>
             </div>
             <div class="container__reply-button">
-                <input type="submit" class="btn " id="btn_submit" value="${'SEND'}">
+                <input type="submit" class="btn " id="btn_submit" value="${'SEND'}" value="fgdgd">
             </div>
         `;
     }
@@ -251,10 +253,11 @@ class UI {
 
     }
 
-    static insertReplyField(id){
+    static insertReplyField(id, info=false){
+        console.log(info);
         let inputField = document.createElement('form');
         inputField.classList = 'container__form br-1 container__form-reply';
-        inputField.innerHTML = createElements.CreateInputField('./images/avatars/image-juliusomo.png');
+        inputField.innerHTML = createElements.CreateInputField('./images/avatars/image-juliusomo.png', info);
         let element = document.getElementById(id);
         let parentEl = element.parentElement.parentElement.parentElement.parentElement.parentElement;
         let siblingElement = element.parentElement.parentElement.parentElement.parentElement.nextElementSibling;
@@ -336,6 +339,14 @@ class UI {
         let parentEl = element.parentElement.parentElement.parentElement.parentElement;
         parentEl.remove();
     }
+
+    static editReply(id){
+        let element = document.getElementById(id, 12)
+        let nextSibling = element.parentElement.parentElement.nextElementSibling.children[0];
+        UI.insertReplyField(id);
+        console.log(nextSibling)
+    }
+
     // static deleteBook(el) {
     //   if(el.classList.contains('delete')) {
     //     el.parentElement.parentElement.remove();
