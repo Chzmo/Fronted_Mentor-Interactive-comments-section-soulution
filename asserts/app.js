@@ -71,6 +71,20 @@ class Store {
         localStorage.setItem('commentsData', JSON.stringify(commentsData)); 
         return UIscore;
     }
+
+    static UpdateComment(id, info=false){
+        let commentsData = Store.getDataComments();
+        id  = id.match(/\d+/)[0];
+        for(let i = 0; i < commentsData.comments.length; i++){
+            if(parseInt(commentsData.comments[i].id) === parseInt(id)){
+                // UIscore = parseInt(UIscore) + parseInt(commentsData.comments[i].score);
+                commentsData.comments[i].conten = 'UIscore';   
+                //alert('found');
+            }
+        }
+
+        localStorage.setItem('commentsData', JSON.stringify(commentsData));
+    }
 }
 
 
@@ -195,18 +209,31 @@ class createElements{
         return user_data;
     }
 
-    static CreateInputField(image, info){
-        return `
+    static CreateInputField(image, info=false){
+    
+        let inputField = '';
+        inputField += `
             <div class="container__form-img">
                 <img src="${image}" alt="">
             </div>
             <div class="container__form-input">
-                <input class="br-1" type="textarea" name="reply" id="reply_comment" placeholder="Add a Comment" required>
-            </div>
-            <div class="container__reply-button">
-                <input type="submit" class="btn " id="btn_submit" value="${'SEND'}" value="fgdgd">
-            </div>
-        `;
+                <input class="br-1" type="textarea" name="reply" id="reply_comment" placeholder="Add a Comment" required value="`;
+                
+                if (info != false){
+                    inputField += info.commentdata;
+                    inputField += `">
+                    </div>
+                    <div class="container__reply-button">
+                        <input type="submit" class="btn " id="${info.commentid}" value="${info.buttontype}" onclick="Store.UpdateComment(id)">
+                    </div>`;
+                }else{
+                    inputField += `">
+                        </div>
+                        <div class="container__reply-button">
+                            <input type="submit" class="btn " id="btn_submit" value="${'SEND'}" >
+                        </div>`;
+                }
+        return inputField;
     }
 }
 
@@ -254,7 +281,7 @@ class UI {
     }
 
     static insertReplyField(id, info=false){
-        console.log(info);
+        
         let inputField = document.createElement('form');
         inputField.classList = 'container__form br-1 container__form-reply';
         inputField.innerHTML = createElements.CreateInputField('./images/avatars/image-juliusomo.png', info);
@@ -268,7 +295,7 @@ class UI {
             form_input.remove();
             let inputField = document.createElement('form');
             inputField.classList = 'container__form br-1 container__form-reply';
-            inputField.innerHTML = createElements.CreateInputField('./images/avatars/image-juliusomo.png');
+            inputField.innerHTML = createElements.CreateInputField('./images/avatars/image-juliusomo.png', info);
             let element = document.getElementById(id);
             let parentEl = element.parentElement.parentElement.parentElement.parentElement.parentElement;
             let siblingElement = element.parentElement.parentElement.parentElement.parentElement.nextElementSibling;
@@ -341,10 +368,16 @@ class UI {
     }
 
     static editReply(id){
-        let element = document.getElementById(id, 12)
-        let nextSibling = element.parentElement.parentElement.nextElementSibling.children[0];
-        UI.insertReplyField(id);
-        console.log(nextSibling)
+        let element = document.getElementById(id)
+        let replyinfo = element.parentElement.parentElement.nextElementSibling.children[0].innerHTML;
+        
+        let info = {
+            commentid:id,
+            commentdata:replyinfo,
+            buttontype:"Update",
+        };
+        
+        UI.insertReplyField(id, info);
     }
 
     // static deleteBook(el) {
