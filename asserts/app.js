@@ -77,9 +77,11 @@ class Store {
         id  = id.match(/\d+/)[0];
         for(let i = 0; i < commentsData.comments.length; i++){
             if(parseInt(commentsData.comments[i].id) === parseInt(id)){
-                // UIscore = parseInt(UIscore) + parseInt(commentsData.comments[i].score);
-                commentsData.comments[i].conten = 'UIscore';   
-                //alert('found');
+                // let element = document.getElementById(id)
+                // let replyinfo = element.parentElement.parentElement.nextElementSibling.children[0].innerHTML;
+                // commentsData.comments[i].content = replyinfo;  
+                // console.log(replyinfo);
+                alert('it is done')
             }
         }
 
@@ -375,9 +377,12 @@ class UI {
             commentid:id,
             commentdata:replyinfo,
             buttontype:"Update",
-        };
+        };      
         
         UI.insertReplyField(id, info);
+        let parentEl = document.getElementById(id).parentElement.parentElement.parentElement.parentElement;
+        parentEl.remove();
+        //console(document.querySelector(id));
     }
 
     // static deleteBook(el) {
