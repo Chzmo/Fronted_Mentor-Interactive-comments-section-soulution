@@ -67,7 +67,7 @@ class Store {
     static changeScore(id, UIscore){
         let commentsData = Store.getDataComments();
         for(let i = 0; i < commentsData.comments.length; i++){
-            if(parseInt(commentsData.comments[i].id) === parseInt(id) && (commentsData.comments[i].score + UIscore) > 0){
+            if(parseInt(commentsData.comments[i].id) === parseInt(id) && (commentsData.comments[i].score + UIscore) => 0){
                 UIscore = parseInt(UIscore) + parseInt(commentsData.comments[i].score);
                 commentsData.comments[i].score = UIscore;   
             }
