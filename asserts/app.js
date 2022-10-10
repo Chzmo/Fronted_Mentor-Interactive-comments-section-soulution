@@ -309,10 +309,24 @@ class UI {
     }
 
     static removeComment(id){
-        Store.deleteComment(id);
-        let element = document.getElementById(id);
-        let parentEl = element.parentElement.parentElement.parentElement.parentElement;
-        parentEl.remove();
+        
+        let modal = document.querySelector('.modal');
+        modal.style.display = 'flex';
+
+        //add a event to delete or cancel button
+        let btnevent = document.querySelector('.modal__content-buttons');
+        btnevent.addEventListener('click', (e)=>{
+            if (e.target.classList.contains('modal__content-buttons_delete')){
+                Store.deleteComment(id);
+                let element = document.getElementById(id);
+                let parentEl = element.parentElement.parentElement.parentElement.parentElement;
+                parentEl.remove();
+                UI.displayComments()
+                modal.style.display = 'none'; 
+            }else{
+                modal.style.display = 'none'; 
+            }
+        });
     }
 
     static EditComment(id){
