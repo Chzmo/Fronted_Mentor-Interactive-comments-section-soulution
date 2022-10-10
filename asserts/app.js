@@ -1,6 +1,10 @@
-// const { element } = require("prop-types");
 
 let replyForm = false;
+
+//Utility Functions
+function sortByScore(a, b){
+    return parseInt(b.score) - parseInt(a.score);
+}
 
 //Store Class: Handles Storage
 class Store {
@@ -77,11 +81,10 @@ class Store {
         id  = id.match(/\d+/)[0];
         for(let i = 0; i < commentsData.comments.length; i++){
             if(parseInt(commentsData.comments[i].id) === parseInt(id)){
-                // let element = document.getElementById(id)
-                // let replyinfo = element.parentElement.parentElement.nextElementSibling.children[0].innerHTML;
-                // commentsData.comments[i].content = replyinfo;  
-                // console.log(replyinfo);
-                alert('it is done')
+                let element = document.getElementsByName('udpdate_reply');
+                let replyinfo = element[0].value;
+                commentsData.comments[i].content = replyinfo;
+                commentsData.comments[i].createdAt =  Date.now();
             }
         }
 
@@ -218,10 +221,10 @@ class createElements{
             <div class="container__form-img">
                 <img src="${image}" alt="">
             </div>
-            <div class="container__form-input">
-                <input class="br-1" type="textarea" name="reply" id="reply_comment" placeholder="Add a Comment" required value="`;
+            <div class="container__form-input">`;
                 
                 if (info != false){
+                    inputField += `<input class="br-1" type="textarea" name="udpdate_reply" id="reply_comment" placeholder="Add a Comment" required value="`;
                     inputField += info.commentdata;
                     inputField += `">
                     </div>
@@ -229,7 +232,8 @@ class createElements{
                         <input type="submit" class="btn " id="${info.commentid}" value="${info.buttontype}" onclick="Store.UpdateComment(id)">
                     </div>`;
                 }else{
-                    inputField += `">
+                    inputField += `
+                    <input class="br-1" type="textarea" name="reply" id="reply_comment" placeholder="Add a Comment" required value="">
                         </div>
                         <div class="container__reply-button">
                             <input type="submit" class="btn " id="btn_submit" value="${'SEND'}" >
@@ -240,15 +244,13 @@ class createElements{
 }
 
 
-
-
 // UI Class: Handle UI Tasks
 class UI {
 
     static displayComments() {
         let data = Store.getDataComments();
         let user_data = '';
-        for(let comment of data.comments){
+        for(let comment of data.comments.sort(sortByScore)){
             user_data += `<div class="container__content br-1">`;
             user_data += createElements.createComment(comment, data);
             user_data += `</div>`;
@@ -326,40 +328,11 @@ class UI {
         
         UIscore = Store.changeScore(id.match(/\d+/)[0], UIscore);
         UIscore = parseInt(UIscore);
-        
-        if (parseInt(score) > 0){
-            let prevElement = parentEl.previousSibling;
-            if (prevElement !== null){
-                let prevScore = prevElement.children[0].children[1].children[0].innerHTML;
-                if (parseInt(prevScore) < parseInt(UIscore)){
-                    let container = parentEl.parentElement;
-                    container.insertBefore(parentEl, prevElement);
-                } else{
-                    prevElement = parentEl.previousSibling.previousSibling;
-                    if (prevElement !== null){
-                        let prevScore = prevElement.children[0].children[1].children[0].innerHTML; 
-                        if (parseInt(prevScore) < parseInt(UIscore)){
-                            let container = parentEl.parentElement;
-                            container.insertBefore(parentEl, prevElement);
-                        }
-                    }
-                }
-            }
-        } else{
-            let NextEl = parentEl.nextElementSibling;
-            if(NextEl.nodeName === 'FORM' ){
-                parentEl.children[0].children[1].children[0].innerHTML = UIscore;
-            } else if (NextEl !== null ){
-                let nextScore = NextEl.children[0].children[1].children[0].innerHTML;
-                if (parseInt(nextScore) > parseInt(UIscore)){
-                    let container = parentEl.parentElement;
-                    container.insertBefore(NextEl, parentEl);
-                }
-            }
-        }
 
-        parentEl.children[0].children[1].children[0].innerHTML = UIscore;
-        
+        UI.displayComments()
+
+        return
+    
     }
 
     static removeReply(id){
@@ -381,7 +354,11 @@ class UI {
         
         UI.insertReplyField(id, info);
         let parentEl = document.getElementById(id).parentElement.parentElement.parentElement.parentElement;
-        parentEl.remove();
+        
+        if (parentEl.classList.contains('container__content')){
+            parentEl.remove();
+        }
+        
         //console(document.querySelector(id));
     }
 
