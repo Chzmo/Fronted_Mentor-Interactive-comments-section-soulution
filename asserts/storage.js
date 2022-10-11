@@ -1,5 +1,3 @@
-let replyForm = false;
-
 //Store Class: Handles Storage
 class Store {
 
@@ -61,7 +59,7 @@ class Store {
     static changeScore(id, UIscore){
         let commentsData = Store.getDataComments();
         for(let i = 0; i < commentsData.comments.length; i++){
-            if(parseInt(commentsData.comments[i].id) === parseInt(id)){
+            if(parseInt(commentsData.comments[i].id) === parseInt(id) && (commentsData.comments[i].score + UIscore) >= 0){
                 UIscore = parseInt(UIscore) + parseInt(commentsData.comments[i].score);
                 commentsData.comments[i].score = UIscore;   
             }
@@ -69,5 +67,19 @@ class Store {
         localStorage.setItem('commentsData', JSON.stringify(commentsData)); 
         return UIscore;
     }
-}
 
+    static UpdateComment(id, info=false){
+        let commentsData = Store.getDataComments();
+        id  = id.match(/\d+/)[0];
+        for(let i = 0; i < commentsData.comments.length; i++){
+            if(parseInt(commentsData.comments[i].id) === parseInt(id)){
+                let element = document.getElementsByName('udpdate_reply');
+                let replyinfo = element[0].value;
+                commentsData.comments[i].content = replyinfo;
+                commentsData.comments[i].createdAt =  Date.now();
+            }
+        }
+
+        localStorage.setItem('commentsData', JSON.stringify(commentsData));
+    }
+}
