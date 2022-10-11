@@ -38,17 +38,12 @@ class Store {
     static deleteReply(id){
         let replyId = parseInt(id);
         let commentsData = Store.getDataComments();
-        // commentsData.comments.forEach((comment, index) => {
-        //     console.log(index,id, comment);
-        // });
-        //console.log(commentsData.comments[1]);
 
         for(let i = 0; i < commentsData.comments.length; i++){
             if(commentsData.comments[i].replies !== null){
                 for (let j = 0; j < commentsData.comments[i].replies.length; j++){
                     if(commentsData.comments[i].replies[j].id === replyId){
                         commentsData.comments[i].replies.splice(j, 1);
-                        //console.log(commentsData.comments[i].replies[j]);
                     }
                 }
             }
@@ -73,7 +68,7 @@ class Store {
         id  = id.match(/\d+/)[0];
         for(let i = 0; i < commentsData.comments.length; i++){
             if(parseInt(commentsData.comments[i].id) === parseInt(id)){
-                let element = document.getElementsByName('udpdate_reply');
+                let element = document.getElementsByName('udpdate_comment');
                 let replyinfo = element[0].value;
                 commentsData.comments[i].content = replyinfo;
                 commentsData.comments[i].createdAt =  Date.now();

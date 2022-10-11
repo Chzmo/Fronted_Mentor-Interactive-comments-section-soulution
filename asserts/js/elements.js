@@ -20,36 +20,36 @@ class createElements{
 
             <div class="container__content-right">
                 <div class="container__content-right_top">
-                <div class="container__content-right_top-profile">
-                    <div class="container__content-right_top-profile_img">
-                    <img src="${comment.user.image.png}" alt="amyrobson">
-                    </div>
-                    <div class="container__content-right_top-profile_username">
-                    
-                    <p>${comment.user.username}`; 
-
-                            if (data.currentUser.username === comment.user.username){
-                                user_data += ` <span class="you">You</span>`;
-                            }
-                            
-                            user_data +=`
-
-                    </p></div>
-                    <div class="container__content-right_top-profile_time"><p>${moment(date, "YYYYMMDD").fromNow()}</p></div>
-                </div>
-                <div class="container__content-right_top-reply">
-                `;
+                    <div class="container__content-right_top-profile">
+                        <div class="container__content-right_top-profile_img">
+                        <img src="${comment.user.image.png}" alt="amyrobson">
+                        </div>
+                        <div class="container__content-right_top-profile_username">
                         
-                if (data.currentUser.username === comment.user.username){
-                    user_data +=    `<a id="${comment.id}" class="red" onclick="UI.removeComment(id)"><span><img src="./images/icon-delete.svg" /></span> Delete</a> 
-                                    &emsp;
-                                    <a id="reply_${comment.id}" onclick="UI.editReply(id)" ><img src="./images/icon-edit.svg" /> <span>Edit</span></a>`;
-                } else{
-                    user_data += `<a id="${comment.id}" onclick="UI.insertReplyField(id)"><img src="./images/icon-reply.svg" alt="reply-icon" > <span>Reply</span></a>`;
-                }
+                        <p>${comment.user.username}`; 
 
-                user_data += `
-                </div>
+                                if (data.currentUser.username === comment.user.username){
+                                    user_data += ` <span class="you">You</span>`;
+                                }
+                                
+                                user_data +=`
+
+                        </p></div>
+                        <div class="container__content-right_top-profile_time"><p>${moment(date, "YYYYMMDD").fromNow()}</p></div>
+                    </div>
+                    <div class="container__content-right_top-reply">
+                    `;
+                            
+                    if (data.currentUser.username === comment.user.username){
+                        user_data +=    `<a id="${comment.id}" class="red" onclick="UI.removeComment(id)"><span><img src="./images/icon-delete.svg" /></span> Delete</a> 
+                                        &emsp;
+                                        <a id="reply_${comment.id}" onclick="UI.editReply(id)" ><img src="./images/icon-edit.svg" /> <span>Edit</span></a>`;
+                    } else{
+                        user_data += `<a id="${comment.id}" onclick="UI.insertReplyField(id)"><img src="./images/icon-reply.svg" alt="reply-icon" > <span>Reply</span></a>`;
+                    }
+
+                    user_data += `
+                    </div>
                 </div>
                 <div class="container__content-right_bottom">
                 <p>${comment.content}</p>
@@ -129,7 +129,7 @@ class createElements{
             <div class="container__form-input">`;
                 
                 if (info != false){
-                    inputField += `<input class="br-1" type="textarea" name="udpdate_reply" id="reply_comment" placeholder="Add a Comment" required value="`;
+                    inputField += `<input class="br-1" type="textarea" name="udpdate_comment" id="reply_comment" placeholder="Add a Comment" required value="`;
                     inputField += info.commentdata;
                     inputField += `">
                     </div>

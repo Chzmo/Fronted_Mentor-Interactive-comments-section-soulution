@@ -25,7 +25,6 @@ class UI {
         document.querySelector('.container').innerHTML = user_data;
     }
 
-
     static insertComment(comment){
         let data = Store.getDataComments();
         const container = document.querySelector('.container');
@@ -36,7 +35,6 @@ class UI {
 
         div.innerHTML = child;
         container.insertBefore(div, form);
-
     }
 
     static insertReplyField(id, info=false){
@@ -59,6 +57,7 @@ class UI {
             let parentEl = element.parentElement.parentElement.parentElement.parentElement.parentElement;
             let siblingElement = element.parentElement.parentElement.parentElement.parentElement.nextElementSibling;
             parentEl.insertBefore(inputField, siblingElement);
+
         }
         replyForm = true
     }
@@ -91,17 +90,10 @@ class UI {
     }
 
     static CommentScore( id, UIscore){
-        let score = UIscore;
-        let currentEl = document.querySelector('#'+id);
-        let parentEl = currentEl.parentElement.parentElement.parentElement;
         
         UIscore = Store.changeScore(id.match(/\d+/)[0], UIscore);
         UIscore = parseInt(UIscore);
-
         UI.displayComments()
-
-        return
-    
     }
 
     static removeReply(id){
@@ -127,16 +119,8 @@ class UI {
         if (parentEl.classList.contains('container__content')){
             parentEl.remove();
         }
-        
-        //console(document.querySelector(id));
     }
 
-    // static deleteBook(el) {
-    //   if(el.classList.contains('delete')) {
-    //     el.parentElement.parentElement.remove();
-    //   }
-    // }
-  
     static clearFields() {
        document.querySelector('#reply_comment').value = '';
     }
