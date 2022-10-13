@@ -46,8 +46,6 @@ class UI {
         let parentEl = element.parentElement.parentElement.parentElement.parentElement.parentElement;
         let siblingElement = element.parentElement.parentElement.parentElement.parentElement.nextElementSibling;
         inputField.addEventListener('submit', (e)=>{
-            e.preventDefault();
-
             try {
                 Store.replyToComment(id);
             } catch (error) {

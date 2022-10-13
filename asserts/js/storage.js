@@ -82,12 +82,13 @@ class Store {
         let replyTo = document.getElementById(id).parentElement.parentElement.children[0].children[1].children[0].innerHTML;
         let replyContent = document.getElementsByName('reply')[0].value;
         let commentsData = Store.getDataComments();
+        let createdAt = new Date();
         commentsData.comments.forEach(comment => {
             if(comment.id === parseInt(id)){
                 let reply = {
                     "id": Math.floor((Math.random() + Math.random()) * 3456),
                     "content": replyContent,
-                    "createdAt": new Date(),
+                    "createdAt": createdAt,
                     "score": 0,
                     "replyingTo":replyTo,
                     "user": {
@@ -112,7 +113,7 @@ class Store {
                         let reply = {
                             "id": Math.floor((Math.random() + Math.random()) * 3456),
                             "content": replyContent,
-                            "createdAt": new Date(),
+                            "createdAt": createdAt,
                             "score": 0,
                             "replyingTo":replyTo,
                             "user": {
