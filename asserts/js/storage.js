@@ -77,4 +77,62 @@ class Store {
 
         localStorage.setItem('commentsData', JSON.stringify(commentsData));
     }
+
+    static replyToComment(id){
+        let replyTo = document.getElementById(id).parentElement.parentElement.children[0].children[1].children[0].innerHTML;
+        let replyContent = document.getElementsByName('reply')[0].value;
+        let commentsData = Store.getDataComments();
+        commentsData.comments.forEach(comment => {
+            if(comment.id === parseInt(id)){
+                let reply = {
+                    "id": Math.floor((Math.random() + Math.random()) * 3456),
+                    "content": replyContent,
+                    "createdAt": new Date(),
+                    "score": 0,
+                    "replyingTo":replyTo,
+                    "user": {
+                        "image": { 
+                        "png": "./images/avatars/image-juliusomo.png",
+                        "webp": "./images/avatars/image-juliusomo.webp"
+                        },
+                        "username": "juliusomo"
+                    },
+                };
+
+                if(comment.replies){
+                    comment.replies.push(reply);
+                }else{
+                    comment.replies = [reply];
+                }
+
+            } 
+            else if(comment.replies){
+                comment.replies.forEach(reply => {
+                    if(reply.id === parseInt(id)){
+                        let reply = {
+                            "id": Math.floor((Math.random() + Math.random()) * 3456),
+                            "content": replyContent,
+                            "createdAt": new Date(),
+                            "score": 0,
+                            "replyingTo":replyTo,
+                            "user": {
+                                "image": { 
+                                "png": "./images/avatars/image-juliusomo.png",
+                                "webp": "./images/avatars/image-juliusomo.webp"
+                                },
+                                "username": "juliusomo"
+                            },
+                        };
+
+                        if(comment.replies){
+                            comment.replies.push(reply);
+                        }else{
+                            comment.replies = [reply];
+                        }
+                    }
+                })
+            }
+        }); 
+        localStorage.setItem('commentsData', JSON.stringify(commentsData));   
+    }
 }

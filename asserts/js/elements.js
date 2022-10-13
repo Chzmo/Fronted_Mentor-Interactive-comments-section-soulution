@@ -128,7 +128,7 @@ class createElements{
             </div>
             <div class="container__form-input">`;
                 
-                if (info != false){
+                if (info){
                     inputField += `<input class="br-1" type="textarea" name="udpdate_comment" id="reply_comment" placeholder="Add a Comment" required value="`;
                     inputField += info.commentdata;
                     inputField += `">

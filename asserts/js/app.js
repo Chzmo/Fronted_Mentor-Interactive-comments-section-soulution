@@ -29,7 +29,7 @@ http.onload = function(){
             //prevent actual Values
             e.preventDefault();
             // Get comment form values
-            let comment = document.querySelector('#comment').value;
+            let comment = document.querySelector('#form_comment').children[1].children[0].value;
             
 
             if (comment ===''){
