@@ -99,9 +99,10 @@ class createElements{
                         `;
                         
                         if (data.currentUser.username === reply.user.username){
+                            
                             user_data +=    `<a id="${reply.id}" class="red" onclick="UI.removeReply(id)"><span><img src="./images/icon-delete.svg" /></span> Delete</a> 
                                             &emsp;
-                                            <a ><img src="./images/icon-edit.svg" /> <span>Edit</span></a>`;
+                                            <a id="reply_${reply.id}" onclick="UI.editInnerReply(id)" ><img src="./images/icon-edit.svg" /> <span>Edit</span></a>`;
                         } else{
                             user_data += `<a id="${reply.id}" onclick="UI.insertReplyField(id)"><img src="./images/icon-reply.svg" alt="reply-icon" > <span>Reply</span></a>`;
                         }
@@ -110,7 +111,7 @@ class createElements{
                         </div>
                     </div>
                     <div class="container__content-right_bottom">
-                        <p><a>@${reply.replyingTo}</a> ${reply.content}</p>
+                        <p><a>@${reply.replyingTo}</a> <span>${reply.content}</span></p>
                     </div>
                 </div>
             </div>
@@ -132,10 +133,17 @@ class createElements{
                     inputField += `<input class="br-1" type="textarea" name="udpdate_comment" id="reply_comment" placeholder="Add a Comment" required value="`;
                     inputField += info.commentdata;
                     inputField += `">
-                    </div>
-                    <div class="container__reply-button">
+                    </div>`;
+
+                    if(info.type === "outerReply"){
+                        inputField += `<div class="container__reply-button">
                         <input type="submit" class="btn " id="${info.commentid}" value="${info.buttontype}" onclick="Store.UpdateComment(id)">
                     </div>`;
+                    } else if (info.type === "innerReply"){
+                        inputField += `<div class="container__reply-button">
+                        <input type="submit" class="btn " id="${info.replyId}" value="${info.buttontype}" onclick="Store.UpdateReply(id)">
+                    </div>`;
+                    }
                 }else{
                     inputField += `
                     <input class="br-1" type="textarea" name="reply" id="comment" placeholder="Add a Comment" required value="">

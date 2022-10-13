@@ -78,6 +78,33 @@ class Store {
         localStorage.setItem('commentsData', JSON.stringify(commentsData));
     }
 
+    static UpdateReply(id){
+        let commentsData = Store.getDataComments();
+        id  = id.match(/\d+/)[0];
+        for(let i = 0; i < commentsData.comments.length; i++){
+            if(commentsData.comments[i].replies){
+                for (let j = 0; j < commentsData.comments[i].replies.length; j++){
+
+                    //alert(parseInt(commentsData.comments[i].replies[j].id));
+                    if (parseInt(commentsData.comments[i].replies[j].id) === parseInt(id)){
+                        let date = Date.now()
+                        let reply = document.querySelector('#reply_comment').value;
+                        commentsData.comments[i].replies[j].content = reply;
+                        commentsData.comments[i].replies[j].createdAt = new Date(date );
+                        alert(new Date(date ))
+                    }
+                }
+
+                // let element = document.getElementsByName('udpdate_comment');
+                // let replyinfo = element[0].value;
+                // commentsData.comments[i].content = replyinfo;
+                // commentsData.comments[i].createdAt =  Date.now();
+            }
+        }
+
+        localStorage.setItem('commentsData', JSON.stringify(commentsData));
+    }
+
     static replyToComment(id){
         let replyTo = document.getElementById(id).parentElement.parentElement.children[0].children[1].children[0].innerHTML;
         let replyContent = document.getElementsByName('reply')[0].value;

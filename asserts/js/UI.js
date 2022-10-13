@@ -91,11 +91,11 @@ class UI {
         });
     }
 
-    static EditComment(id){
-        let element = document.getElementById(id);
-        let parentEl = element.parentElement.parentElement.parentElement.parentElement;
-        parentEl.remove();
-    }
+    // static EditComment(id){
+    //     let element = document.getElementById(id);
+    //     let parentEl = element.parentElement.parentElement.parentElement.parentElement;
+    //     parentEl.remove();
+    // }
 
     static CommentScore( id, UIscore){
         
@@ -105,10 +105,20 @@ class UI {
     }
 
     static removeReply(id){
-        Store.deleteReply(id);
-        let element = document.getElementById(id);
-        let parentEl = element.parentElement.parentElement.parentElement.parentElement;
-        parentEl.remove();
+        let modal = document.querySelector('.modal');
+        modal.style.display = 'flex';
+
+        //add a event to delete or cancel button
+        let btnevent = document.querySelector('.modal__content-buttons');
+        btnevent.addEventListener('click', (e)=>{
+            if (e.target.classList.contains('modal__content-buttons_delete')){
+                Store.deleteReply(id);
+                UI.displayComments()
+                modal.style.display = 'none'; 
+            }else{
+                modal.style.display = 'none'; 
+            }
+        });
     }
 
     static editReply(id){
@@ -117,6 +127,7 @@ class UI {
         
         let info = {
             commentid:id,
+            type:"outerReply",
             commentdata:replyinfo,
             buttontype:"Update",
         };      
@@ -128,6 +139,25 @@ class UI {
             parentEl.remove();
         }
     }
+
+    static editInnerReply(id){
+        let element = document.getElementById(id)
+        let replyinfo = element.parentElement.parentElement.nextElementSibling.children[0].children[1].innerHTML;
+        let info = {
+            type:"innerReply",
+            replyId:id,
+            commentdata:replyinfo,
+            buttontype:"Update",
+        };      
+        
+        UI.insertReplyField(id, info);
+        let parentEl = document.getElementById(id).parentElement.parentElement.parentElement.parentElement;
+        
+        if (parentEl.classList.contains('container__content')){
+            parentEl.remove();
+        }
+    }
+
 
     static clearFields() {
        document.querySelector('#comment').value = '';
