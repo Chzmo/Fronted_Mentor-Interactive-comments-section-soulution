@@ -51,11 +51,7 @@ http.onload = function(){
                 }
                 let res = Store.addComment(userComment);
                 if (res === 0){
-                    //clear fields
-                    UI.clearFields();
-
-                    //Add comment to UI
-                    UI.insertComment(userComment);
+                    UI.displayComments()
                 }else{
                     alert('something happened');
                 };
