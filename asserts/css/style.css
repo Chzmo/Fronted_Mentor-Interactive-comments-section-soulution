@@ -33,7 +33,7 @@ p {
 }
 
 body {
-  background: var(--Very-light-gray);
+  background: var(--Light-gray);
   font-size: 16px;
 }
 
@@ -195,7 +195,7 @@ body {
 .container .comment {
   margin-left: 2.5rem;
   padding-left: 2.9rem;
-  border-left: 1px solid var(--Light-gray);
+  border-left: 1px solid var(--Light-grayish-blue);
   display: flex;
   flex-direction: column;
   gap: 1rem;
