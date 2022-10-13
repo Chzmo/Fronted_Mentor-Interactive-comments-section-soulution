@@ -91,12 +91,6 @@ class UI {
         });
     }
 
-    // static EditComment(id){
-    //     let element = document.getElementById(id);
-    //     let parentEl = element.parentElement.parentElement.parentElement.parentElement;
-    //     parentEl.remove();
-    // }
-
     static CommentScore( id, UIscore){
         
         UIscore = Store.changeScore(id.match(/\d+/)[0], UIscore);

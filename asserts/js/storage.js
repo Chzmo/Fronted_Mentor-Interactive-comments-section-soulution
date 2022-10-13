@@ -91,11 +91,6 @@ class Store {
                         commentsData.comments[i].replies[j].content = reply;
                     }
                 }
-
-                // let element = document.getElementsByName('udpdate_comment');
-                // let replyinfo = element[0].value;
-                // commentsData.comments[i].content = replyinfo;
-                // commentsData.comments[i].createdAt =  Date.now();
             }
         }
 
