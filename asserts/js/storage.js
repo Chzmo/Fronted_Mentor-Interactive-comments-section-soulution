@@ -87,11 +87,8 @@ class Store {
 
                     //alert(parseInt(commentsData.comments[i].replies[j].id));
                     if (parseInt(commentsData.comments[i].replies[j].id) === parseInt(id)){
-                        let date = Date.now()
                         let reply = document.querySelector('#reply_comment').value;
                         commentsData.comments[i].replies[j].content = reply;
-                        commentsData.comments[i].replies[j].createdAt = new Date(date );
-                        alert(new Date(date ))
                     }
                 }
 
