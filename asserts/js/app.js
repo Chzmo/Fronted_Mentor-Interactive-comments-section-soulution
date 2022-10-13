@@ -29,7 +29,8 @@ http.onload = function(){
             //prevent actual Values
             e.preventDefault();
             // Get comment form values
-            let comment = document.querySelector('#reply_comment').value;
+            let comment = document.querySelector('#comment').value;
+            
 
             if (comment ===''){
                 alert('Please fill all fields');

@@ -45,6 +45,62 @@ class UI {
         let element = document.getElementById(id);
         let parentEl = element.parentElement.parentElement.parentElement.parentElement.parentElement;
         let siblingElement = element.parentElement.parentElement.parentElement.parentElement.nextElementSibling;
+        inputField.addEventListener('submit', (e)=>{
+            e.preventDefault();
+
+            try {
+                let replyTo = document.getElementById(id).parentElement.parentElement.children[0].children[1].children[0].innerHTML;
+                let replyContent = document.getElementsByName('reply').value;
+                let commentsData = Store.getDataComments();
+                commentsData.comments.forEach(comment => {
+                    if(comment.id === parseInt(id)){
+                        let reply = {
+                            "id": Math.floor((Math.random() + Math.random()) * 3456),
+                            "content": replyContent,
+                            "createdAt": new Date(),
+                            "score": 0,
+                            "replyingTo":replyTo,
+                            "user": {
+                                "image": { 
+                                "png": "./images/avatars/image-juliusomo.png",
+                                "webp": "./images/avatars/image-juliusomo.webp"
+                                },
+                                "username": "juliusomo"
+                            },
+                        };
+
+                        console.log(reply);
+                    } else if(comment.replies){
+                        comment.replies.forEach(reply => {
+                            if(reply.id === parseInt(id)){
+                                let reply = {
+                                    "id": Math.floor((Math.random() + Math.random()) * 3456),
+                                    "content": replyContent.innerHTML,
+                                    "createdAt": new Date(),
+                                    "score": 0,
+                                    "replyingTo":replyTo,
+                                    "user": {
+                                        "image": { 
+                                        "png": "./images/avatars/image-juliusomo.png",
+                                        "webp": "./images/avatars/image-juliusomo.webp"
+                                        },
+                                        "username": "juliusomo"
+                                    },
+                                };
+
+                                console.log(reply);
+                            }
+                        })
+                    }
+                }); 
+            } catch (error) {
+                
+            }
+            
+                       
+        
+        });
+
         if (replyForm == false){  
             parentEl.insertBefore(inputField, siblingElement);
         }else{
@@ -122,6 +178,6 @@ class UI {
     }
 
     static clearFields() {
-       document.querySelector('#reply_comment').value = '';
+       document.querySelector('#comment').value = '';
     }
 }

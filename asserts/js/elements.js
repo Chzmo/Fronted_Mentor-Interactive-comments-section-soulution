@@ -138,7 +138,7 @@ class createElements{
                     </div>`;
                 }else{
                     inputField += `
-                    <input class="br-1" type="textarea" name="reply" id="reply_comment" placeholder="Add a Comment" required value="">
+                    <input class="br-1" type="textarea" name="reply" id="comment" placeholder="Add a Comment" required value="">
                         </div>
                         <div class="container__reply-button">
                             <input type="submit" class="btn " id="btn_submit" value="${'SEND'}" >
