@@ -14,7 +14,6 @@ This is a solution to the [Interactive comments section challenge on Frontend Me
   - [Continued development](#continued-development)
   - [Useful resources](#useful-resources)
 - [Author](#author)
-- [Acknowledgments](#acknowledgments)
 
 ## Overview
 
@@ -43,20 +42,21 @@ Users should be able to:
 ### Built with
 
 - Semantic HTML5 markup
-- CSS custom properties
+- CSS custom properties plus Sass
 - Flexbox
-- CSS Grid
+- CSS Grid 
 - Desktop-first workflow
 - [Vanilla Js](https://momentjs.com/) - Framework free javascript
 - [Moment](https://momentjs.com/) - JS library
+- [Sass](https://sass-lang.com/) - JS library
 
 ### What I learned
 
-Use this section to recap over some of your major learnings while working through this project. Writing these out and providing code samples of areas you want to highlight is a great way to reinforce your own knowledge.
+Working with CSS Grid, Sass.
 
 ### Continued development
 
-Use this section to outline areas that you want to continue focusing on in future projects. These could be concepts you're still not completely comfortable with or techniques you found useful that you want to refine and perfect.
+I would focus more on cleaner code structuring and reusable templates. 
 
 
 ### Useful resources
@@ -67,3 +67,5 @@ Use this section to outline areas that you want to continue focusing on in futur
 
 - Website - [chzmo.com](https://www.chzmo.com)
 - Frontend Mentor - [@Chzmo](https://www.frontendmentor.io/profile/Chzmo)
+
+
