@@ -67,5 +67,3 @@ I would focus more on cleaner code structuring and reusable templates.
 
 - Website - [chzmo.com](https://www.chzmo.com)
 - Frontend Mentor - [@Chzmo](https://www.frontendmentor.io/profile/Chzmo)
-
-
