@@ -1,4 +1,4 @@
-//Store Class: Handles Storage
+//Store Class: Handles local Storage
 class Store {
 
     static getDataComments() {
