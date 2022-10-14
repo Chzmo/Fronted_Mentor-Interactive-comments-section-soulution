@@ -335,34 +335,35 @@ body .container .container__content .container__content-left .container__content
     flex: 10;
   }
   body .container .comment {
-    margin-left: 2.5rem;
-    padding-left: 2.9rem;
+    margin-left: 0.5rem;
+    padding-left: 1rem;
     border-left: 1px solid var(--Light-grayish-blue);
     display: flex;
     flex-direction: column;
     gap: 1rem;
   }
   .container__form {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    gap: 1rem;
-    padding: 1.7rem;
-    background: var(--White);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    grid-template-areas: "input input" "img send";
+    gap: 2rem;
+    padding-bottom: 0.1rem;
   }
   .container__form .container__form-img {
     display: flex;
     place-items: center;
     width: 2.6rem;
     height: 2.6rem;
+    grid-area: img;
   }
   .container__form .container__form-img img {
     height: 100%;
     width: 100%;
   }
   .container__form .container__form-input {
-    flex: 2;
-    display: flex;
+    grid-column: span 2;
+    grid-area: input;
   }
   .container__form .container__form-input input {
     width: 100%;
@@ -386,5 +387,13 @@ body .container .container__content .container__content-left .container__content
     word-wrap: break-word;
     word-break: break-all;
     height: 80px;
+  }
+  .container__form .container__reply-button {
+    grid-area: send;
+    display: flex;
+    justify-content: flex-end;
+  }
+  .container__form .container__reply-button input {
+    height: 2.7rem;
   }
 }/*# sourceMappingURL=style.css.map */

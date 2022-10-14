@@ -393,8 +393,8 @@ body{
             }
         
             .comment{
-                margin-left: 2.5rem ;
-                padding-left: 2.9rem;
+                margin-left: .5rem ;
+                padding-left: 1rem;
                 border-left: 1px solid var(--Light-grayish-blue);
                 display: flex;
                 flex-direction: column;
@@ -407,18 +407,21 @@ body{
 
     //Form
     .container__form{
-        display: flex;
-        flex-direction: row;
-        justify-content: space-between;
-        gap: 1rem;
-        padding: 1.7rem;
-        background: var(--White);
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: 1fr 1fr;
+        grid-template-areas: 
+        "input input"
+        "img send";
+        gap: 2rem;
+        padding-bottom: .1rem;
 
         .container__form-img{
             display: flex;
             place-items: center;
             width: 2.6rem;
             height: 2.6rem;
+            grid-area: img;
 
             img{
                 height: 100%;
@@ -427,8 +430,8 @@ body{
         }
 
         .container__form-input{
-            flex: 2;
-            display: flex;
+            grid-column: span 2;
+            grid-area: input;
 
             input{
                 width: 100%;
@@ -457,6 +460,15 @@ body{
                 word-wrap:break-word;
                 word-break: break-all;
                 height: 80px;
+            }
+        }
+
+        .container__reply-button{
+            grid-area: send;
+            display: flex;
+            justify-content: flex-end;
+            input{
+                height: 2.7rem;
             }
         }
     }
