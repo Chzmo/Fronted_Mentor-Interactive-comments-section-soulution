@@ -301,7 +301,7 @@ body{
     }
 }
 
-@media screen and (max-width:900px) {
+@media screen and (max-width:600px) {
     body{
         .container{
             gap: .9rem;
@@ -320,7 +320,7 @@ body{
         
                 .container__content-left{
                     background: var(--Very-light-gray);
-                    padding: .6rem .7rem;
+                    padding: .3rem .9rem;
                     color: var(--Dark-blue);
                     display: flex;
                     gap: 1rem;
@@ -329,13 +329,17 @@ body{
 
                     .container__content-left_plus,
                     .container__content-left_minus{
-                        padding: 7px 0;
+                        padding: 3px 0;
                         display: flex;
-                        place-content: center;
         
                         &:hover{
                             cursor: pointer;
                         }
+                    }
+                    .container__content-left_score{
+                        display: flex;
+                        flex-direction: column;
+                        justify-content: center;
                     }
                 }
         
