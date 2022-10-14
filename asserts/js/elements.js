@@ -67,13 +67,13 @@ class createElements{
             <div class="container__content br-1 ">
                 <div class="container__content-left br-2">
                     <div class="container__content-left_plus">
-                        <a href=""><img src="./images/icon-plus.svg" alt=""></a>
+                        <a id="plus_${reply.id}" onclick="UI.CommentScore(id, 1)"><img src="./images/icon-plus.svg" alt=""></a>
                     </div>
                     <div class="container__content-left_score">
                         <P>${reply.score}</P>
                     </div>
                     <div class="container__content-left_minus">
-                        <a href=""><img src="./images/icon-minus.svg" alt=""></a>
+                        <a id="minus_${reply.id}" onclick="UI.CommentScore(id, -1)"><img src="./images/icon-minus.svg" alt=""></a>
                     </div>
                     </div>
             

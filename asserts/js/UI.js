@@ -92,7 +92,6 @@ class UI {
     }
 
     static CommentScore( id, UIscore){
-        
         UIscore = Store.changeScore(id.match(/\d+/)[0], UIscore);
         UIscore = parseInt(UIscore);
         UI.displayComments()

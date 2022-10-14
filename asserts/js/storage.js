@@ -58,6 +58,18 @@ class Store {
                 UIscore = parseInt(UIscore) + parseInt(commentsData.comments[i].score);
                 commentsData.comments[i].score = UIscore;   
             }
+            else{
+                if (commentsData.comments[i].replies){
+                    for (let j = 0; j < commentsData.comments[i].replies.length; j++){
+                    
+                        if (parseInt(commentsData.comments[i].replies[j].id) === parseInt(id) && (commentsData.comments[i].replies[j].score + UIscore) >= 0){
+                            UIscore = parseInt(UIscore) + parseInt(commentsData.comments[i].replies[j].score);
+                            commentsData.comments[i].replies[j].score = UIscore;
+                        }
+                    }
+                }
+            }
+            
         }
         localStorage.setItem('commentsData', JSON.stringify(commentsData)); 
         return UIscore;
