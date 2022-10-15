@@ -48,7 +48,7 @@ Users should be able to:
 - Desktop-first workflow
 - [Vanilla Js](https://momentjs.com/) - Framework free javascript
 - [Moment](https://momentjs.com/) - JS library
-- [Sass](https://sass-lang.com/) - JS library
+- [Sass](https://sass-lang.com/) - CSS with superpowers 
 
 ### What I learned
 
