@@ -233,28 +233,23 @@ body {
   flex: 2;
   display: flex;
 }
-.container__form .container__form-input input {
+.container__form .container__form-input textarea {
   width: 100%;
   min-height: 5rem;
   border: 1px solid var(--Very-light-gray);
   color: var(--Grayish-Blue);
-  padding: 0 1rem;
+  padding: 1rem;
 }
-.container__form .container__form-input input:focus {
+.container__form .container__form-input textarea:focus {
   outline: none;
   border: 1px solid var(--Grayish-Blue);
 }
-.container__form .container__form-input input:hover {
+.container__form .container__form-input textarea:hover {
   cursor: pointer;
   border: 1px solid var(--Grayish-Blue);
 }
-.container__form .container__form-input input:hover body {
+.container__form .container__form-input textarea:hover body {
   background: red;
-}
-.container__form .container__form-input input[type=text] {
-  word-wrap: break-word;
-  word-break: break-all;
-  height: 80px;
 }
 
 @media screen and (max-width: 600px) {

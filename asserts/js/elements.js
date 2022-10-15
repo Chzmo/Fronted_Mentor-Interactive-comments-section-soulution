@@ -130,9 +130,9 @@ class createElements{
             <div class="container__form-input">`;
                 
                 if (info){
-                    inputField += `<input class="br-1" type="textarea" name="udpdate_comment" id="reply_comment" placeholder="Add a Comment" required value="`;
+                    inputField += `<textarea class="br-1" type="text" name="udpdate_comment" id="reply_comment" placeholder="Add a Comment" required value="`;
                     inputField += info.commentdata;
-                    inputField += `">
+                    inputField += `"></textarea>
                     </div>`;
 
                     if(info.type === "outerReply"){
@@ -146,11 +146,12 @@ class createElements{
                     }
                 }else{
                     inputField += `
-                    <input class="br-1" type="textarea" name="reply" id="comment" placeholder="Add a Comment" required value="">
-                        </div>
-                        <div class="container__reply-button">
-                            <input type="submit" class="btn " id="btn_submit" value="${'SEND'}" >
-                        </div>`;
+                    <textarea class="br-1" type="textarea" name="reply" id="comment" placeholder="Add a Comment" required value=""></textarea>
+                </div>
+                <div class="container__reply-button">
+                    <input type="submit" class="btn " id="btn_submit" value="${'SEND'}" >
+                </div>`;
+                    
                 }
         return inputField;
     }
