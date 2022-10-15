@@ -12,7 +12,7 @@ class UI {
 
             if (comment.replies !== null){
                 user_data += `<div class="comment">`;
-                for(let reply of comment.replies){
+                for(let reply of comment.replies.sort(sortByDate)){
                     user_data += createElements.createReply(reply, data);
                 }
                 user_data += `</div>`;
@@ -115,7 +115,7 @@ class UI {
     }
 
     static editReply(id){
-        let element = document.getElementById(id)
+        let element = document.getElementById(id);
         let replyinfo = element.parentElement.parentElement.nextElementSibling.children[0].innerHTML;
         
         let info = {
@@ -134,6 +134,7 @@ class UI {
     }
 
     static editInnerReply(id){
+        
         let element = document.getElementById(id)
         let replyinfo = element.parentElement.parentElement.nextElementSibling.children[0].children[1].innerHTML;
         let info = {

@@ -2,9 +2,17 @@
 let replyForm = false;
 
 //Utility Functions
+
+// sort by score
 function sortByScore(a, b){
     return parseInt(b.score) - parseInt(a.score);
 }
+
+// sort by date
+function sortByDate(a, b){
+    return new Date(b.createdAt).valueOf() - new Date(a.createdAt).valueOf(); //subtract timestamps
+}
+
 
 
 let http = new XMLHttpRequest();
@@ -33,9 +41,10 @@ http.onload = function(){
             
 
             if (comment ===''){
-                alert('Please fill all fields');
+                alert('Please fill all fields'); // this will execute if the required property is removed on the browser
             } else{
                 userComment = {
+                    //Creates some random id and they should be unique 
                     "id": Math.floor((Math.random() + Math.random()) * 3456),
                     "content": comment,
                     "createdAt": new Date(),
@@ -49,7 +58,7 @@ http.onload = function(){
                     },
                     "replies": null
                 }
-                let res = Store.addComment(userComment);
+                let res = Store.addComment(userComment); // returns 0 if not errors
                 if (res === 0){
                     UI.displayComments()
                 }else{
