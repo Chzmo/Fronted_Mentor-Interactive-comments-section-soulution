@@ -93,7 +93,7 @@ class createElements{
                             user_data +=`
                             </p>
                         </div>
-                        <div class="container__content-right_top-profile_time"><p>${moment(reply.createdAt, "YYYYMMDD").fromNow()}</p></div>
+                        <div class="container__content-right_top-profile_time"><p>${moment(new Date(reply.createdAt), "YYYYMMDD").fromNow()}</p></div>
                         </div>
                         <div class="container__content-right_top-reply">
                         `;
@@ -130,9 +130,8 @@ class createElements{
             <div class="container__form-input">`;
                 
                 if (info){
-                    inputField += `<textarea class="br-1" type="text" name="udpdate_comment" id="reply_comment" placeholder="Add a Comment" required value="`;
-                    inputField += info.commentdata;
-                    inputField += `"></textarea>
+                    inputField += `<textarea class="br-1" type="text" wrap="soft" name="udpdate_comment" id="reply_comment" placeholder="Add a Comment" required `;
+                    inputField += `">${info.commentdata}</textarea>
                     </div>`;
 
                     if(info.type === "outerReply"){
@@ -146,7 +145,7 @@ class createElements{
                     }
                 }else{
                     inputField += `
-                    <textarea class="br-1" type="textarea" name="reply" id="comment" placeholder="Add a Comment" required value=""></textarea>
+                    <textarea class="br-1" type="text" wrap="soft" name="reply" id="comment" placeholder="Add a Comment" required value=""></textarea>
                 </div>
                 <div class="container__reply-button">
                     <input type="submit" class="btn " id="btn_submit" value="${'SEND'}" >

@@ -276,6 +276,8 @@ body{
             border: 1px solid var(--Very-light-gray);
             color: var(--Grayish-Blue);
             padding: 1rem;
+            overflow: hidden;
+            resize:none;
             
             &:focus{
                 outline: none;
