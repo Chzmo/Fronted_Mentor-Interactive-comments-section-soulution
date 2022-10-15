@@ -38,7 +38,6 @@ class UI {
     }
 
     static insertReplyField(id, info=false){
-        
         let inputField = document.createElement('form');
         inputField.classList = 'container__form br-1 container__form-reply';
         inputField.innerHTML = createElements.CreateInputField('./images/avatars/image-juliusomo.png', info);
@@ -134,7 +133,6 @@ class UI {
     }
 
     static editInnerReply(id){
-        
         let element = document.getElementById(id)
         let replyinfo = element.parentElement.parentElement.nextElementSibling.children[0].children[1].innerHTML;
         let info = {
@@ -142,13 +140,26 @@ class UI {
             replyId:id,
             commentdata:replyinfo,
             buttontype:"Update",
-        };      
+        }; 
+             
         
         UI.insertReplyField(id, info);
         let parentEl = document.getElementById(id).parentElement.parentElement.parentElement.parentElement;
         
+        //assign a display: flex to the inner children so that when another
+        // edit button is clicked the comments should appear
+        // try commenting for each and observe what happens when you click 
+        // mutiple edit buttons
+        // parentEl.parentElement.children.forEach(child => {
+        //     child.style.display = "flex";
+        // });
+
+        //console.log(parentEl.parentElement.children);
+        for (let i = 0; i < parentEl.parentElement.children.length; i++){
+            parentEl.parentElement.children[i].style.display = "flex";
+        }
         if (parentEl.classList.contains('container__content')){
-            parentEl.remove();
+            parentEl.style.display = "none";
         }
     }
 

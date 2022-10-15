@@ -10,7 +10,7 @@ function sortByScore(a, b){
 
 // sort by date
 function sortByDate(a, b){
-    return new Date(b.createdAt).valueOf() - new Date(a.createdAt).valueOf(); //subtract timestamps
+    return new Date(a.createdAt).valueOf() - new Date(b.createdAt).valueOf(); //subtract timestamps
 }
 
 
