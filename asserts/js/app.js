@@ -1,6 +1,5 @@
 
 let replyForm = false;
-let updateForm = false;
 
 //Utility Functions
 
