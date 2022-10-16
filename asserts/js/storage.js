@@ -75,7 +75,7 @@ class Store {
         return UIscore;
     }
 
-    static UpdateComment(id, info=false){
+    static UpdateComment(id){
         let commentsData = Store.getDataComments();
         id  = id.match(/\d+/)[0];
         for(let i = 0; i < commentsData.comments.length; i++){

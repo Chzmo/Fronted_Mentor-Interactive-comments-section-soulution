@@ -34,7 +34,7 @@ Users should be able to:
 
 ### Links
 
-- Solution URL: [solution URL]()
+- Solution URL: [solution URL](https://)
 - Live Site URL: [Live site](https://boisterous-biscotti-f94f09.netlify.app/)
 
 ## My process
@@ -44,20 +44,19 @@ Users should be able to:
 - Semantic HTML5 markup
 - CSS custom properties plus Sass
 - Flexbox
-- CSS Grid 
+- CSS Grid
 - Desktop-first workflow
 - [Vanilla Js](https://momentjs.com/) - Framework free javascript
 - [Moment](https://momentjs.com/) - JS library
-- [Sass](https://sass-lang.com/) - CSS with superpowers 
+- [Sass](https://sass-lang.com/) - CSS with superpowers
 
 ### What I learned
 
-Working with CSS Grid, Sass.
+Working with CSS Grid, Sass, working with local storage, Classes in Javascript.
 
 ### Continued development
 
-I would focus more on cleaner code structuring and reusable templates. 
-
+I would focus more on cleaner code structuring and reusable templates.
 
 ### Useful resources
 
