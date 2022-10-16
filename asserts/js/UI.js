@@ -1,8 +1,10 @@
-let formInputState = null;
+let removedCommentState = null;
+let replyForm = false;
 // UI Class: Handle UI Tasks
 class UI {
 
     static displayComments() {
+        //display comments
         let data = Store.getDataComments();
         let user_data = '';
         for(let comment of data.comments.sort(sortByScore)){
@@ -29,6 +31,7 @@ class UI {
     }
 
     static insertComment(comment){
+        //inserting a comment to dom
         let data = Store.getDataComments();
         const container = document.querySelector('.container');
         let form = document.querySelector('#form_comment');
@@ -41,6 +44,7 @@ class UI {
     }
 
     static insertReplyField(id, info=false){
+        //created a reply field 
         let inputField = document.createElement('form');
         inputField.classList = 'container__form br-1 container__form-reply';
         inputField.innerHTML = createElements.CreateInputField('./images/avatars/image-juliusomo.png', info);
@@ -50,7 +54,7 @@ class UI {
         inputField.addEventListener('submit', (e)=>{
             //e.preventDefault();
             try {
-                //adds inener or outer reply block
+                //store comment to database 
                 Store.replyToComment(id);
             } catch (error) {
                 console.log(error)
@@ -63,14 +67,15 @@ class UI {
             
         }else{
             let form_input = document.querySelector('.container__form-reply');
-            //replace the reply/comment block that was removed
-            if(formInputState){
-                formInputState.parentEl.insertBefore(formInputState.commentblock, formInputState.nextSibling);
+            //replace the reply/comment block from removedCommentState that was removed
+            if(removedCommentState){
+                removedCommentState.parentEl.insertBefore(removedCommentState.commentblock, removedCommentState.nextSibling);
             }
             form_input.remove();
             replyForm = false;
-            formInputState = null;
+            removedCommentState = null;
             
+            //inserts the reply field to dom
             UI.insertReplyField(id, info);
         }
     }
@@ -97,7 +102,7 @@ class UI {
     }
 
     static CommentScore( id, UIscore){
-        UIscore = Store.changeScore(id.match(/\d+/)[0], UIscore);
+        UIscore = Store.changeScore(id.match(/\d+/)[0], UIscore); //gets the integer from string
         UIscore = parseInt(UIscore);
         UI.displayComments()
     }
@@ -123,6 +128,7 @@ class UI {
         let element = document.getElementById(id);
         let replyinfo = element.parentElement.parentElement.nextElementSibling.children[0].innerHTML;
         
+        //info used on what button should be created 
         let info = {
             commentid:id,
             type:"outerReply",
@@ -133,12 +139,12 @@ class UI {
         UI.insertReplyField(id, info);
         // gets the whole comment block
         let commentblock = document.getElementById(id).parentElement.parentElement.parentElement.parentElement;
-        
-        
-        
-
+       
+        //removes a comment block substuted with update field
         if (commentblock.classList.contains('container__content')){ 
-            formInputState = {
+            //stores the state of a comment block
+            //gets replaced if the user clicks on edit, or reply
+            removedCommentState = {
                 "commentblock": commentblock,
                 "parentEl": commentblock.parentElement,
                 "nextSibling": commentblock.nextElementSibling
@@ -150,37 +156,28 @@ class UI {
 
     static editInnerReply(id){
         let element = document.getElementById(id)
+        //gets info to edit
         let replyinfo = element.parentElement.parentElement.nextElementSibling.children[0].children[1].innerHTML;
+        //info used on what button should be created eg inner reply
         let info = {
             type:"innerReply",
             replyId:id,
             commentdata:replyinfo,
             buttontype:"Update",
-        }; 
-             
+        };      
         
         UI.insertReplyField(id, info);
+        // gets the whole comment block
         let commentblock = document.getElementById(id).parentElement.parentElement.parentElement.parentElement;
         
-        //assign a display: flex to the inner children so that when another
-        // edit button is clicked the comments should appear
-        // try commenting for each and observe what happens when you click 
-        // mutiple edit buttons
-        // parentEl.parentElement.children.forEach(child => {
-        //     child.style.display = "flex";
-        // });
-
-        //console.log(parentEl.parentElement.children);
-        // for (let i = 0; i < parentEl.parentElement.children.length; i++){
-        //     parentEl.parentElement.children[i].style.display = "flex";
-        // }
-
+        //removes a comment block substuted with update field
         if (commentblock.classList.contains('container__content')){
-            formInputState = {
+            //stores the state of a comment block
+            //gets replaced if the user clicks on edit, or reply
+            removedCommentState = {
                 "commentblock": commentblock,
                 "parentEl": commentblock.parentElement,
                 "nextSibling": commentblock.nextElementSibling
-
             }
             commentblock.remove();
         }

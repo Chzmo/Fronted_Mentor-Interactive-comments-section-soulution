@@ -1,6 +1,3 @@
-
-let replyForm = false;
-
 //Utility Functions
 
 // sort by score
