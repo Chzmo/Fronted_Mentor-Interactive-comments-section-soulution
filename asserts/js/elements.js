@@ -41,9 +41,9 @@ class createElements{
                     `;
                             
                     if (data.currentUser.username === comment.user.username){
-                        user_data +=    `<a id="${comment.id}" class="red" onclick="UI.removeComment(id)"><span><img src="./images/icon-delete.svg" /></span> Delete</a> 
+                        user_data +=    `<a id="${comment.id}" class="red" onclick="UI.removeComment(id)"><span><img alt="delete" src="./images/icon-delete.svg" /></span> Delete</a> 
                                         &emsp;
-                                        <a id="reply_${comment.id}" onclick="UI.editReply(id)" ><img src="./images/icon-edit.svg" /> <span>Edit</span></a>`;
+                                        <a id="reply_${comment.id}" onclick="UI.editReply(id)" ><img src="./images/icon-edit.svg" alt="edit"  /> <span>Edit</span></a>`;
                     } else{
                         user_data += `<a id="${comment.id}" onclick="UI.insertReplyField(id)"><img src="./images/icon-reply.svg" alt="reply-icon" > <span>Reply</span></a>`;
                     }
@@ -100,9 +100,9 @@ class createElements{
                         
                         if (data.currentUser.username === reply.user.username){
                             
-                            user_data +=    `<a id="${reply.id}" class="red" onclick="UI.removeReply(id)"><span><img src="./images/icon-delete.svg" /></span> Delete</a> 
+                            user_data +=    `<a id="${reply.id}" class="red" onclick="UI.removeReply(id)"><span><img alt="delete" src="./images/icon-delete.svg" /></span> Delete</a> 
                                             &emsp;
-                                            <a id="reply_${reply.id}" onclick="UI.editInnerReply(id)" ><img src="./images/icon-edit.svg" /> <span>Edit</span></a>`;
+                                            <a id="reply_${reply.id}" onclick="UI.editInnerReply(id)" ><img src="./images/icon-edit.svg" alt="edit" /> <span>Edit</span></a>`;
                         } else{
                             user_data += `<a id="${reply.id}" onclick="UI.insertReplyField(id)"><img src="./images/icon-reply.svg" alt="reply-icon" > <span>Reply</span></a>`;
                         }
