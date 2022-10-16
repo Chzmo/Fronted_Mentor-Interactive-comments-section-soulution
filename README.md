@@ -34,7 +34,7 @@ Users should be able to:
 
 ### Links
 
-- Solution URL: [solution URL](https://)
+- Solution URL: [solution URL](https://www.frontendmentor.io/solutions/interactive-comments-section-solution-in-html-css-and-javascript-wZTSUUOeU5)
 - Live Site URL: [Live site](https://boisterous-biscotti-f94f09.netlify.app/)
 
 ## My process
