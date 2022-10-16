@@ -130,7 +130,7 @@ class createElements{
             <div class="container__form-input">`;
                 
                 if (info){
-                    inputField += `<textarea class="br-1" type="text" wrap="soft" name="udpdate_comment" id="reply_comment" placeholder="Add a Comment" required `;
+                    inputField += `<textarea class="br-1" wrap="soft" name="udpdate_comment" id="reply_comment" placeholder="Add a Comment" required `;
                     inputField += `">${info.commentdata}</textarea>
                     </div>`;
 
@@ -145,7 +145,7 @@ class createElements{
                     }
                 }else{
                     inputField += `
-                    <textarea class="br-1" type="text" wrap="soft" name="reply" id="comment" placeholder="Add a Comment" required ></textarea>
+                    <textarea class="br-1" wrap="soft" name="reply" id="comment" placeholder="Add a Comment" required ></textarea>
                 </div>
                 <div class="container__reply-button">
                     <input type="submit" class="btn " id="btn_submit" value="${'SEND'}" >
