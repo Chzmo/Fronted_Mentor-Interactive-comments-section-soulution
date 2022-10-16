@@ -23,6 +23,9 @@ class UI {
         user_data += createElements.CreateInputField(data.currentUser.image.png);
         user_data += `</form>`;
         document.querySelector('.container').innerHTML = user_data;
+        
+        //Get Comments form UI
+        ListenToCommentForm();
     }
 
     static insertComment(comment){
@@ -45,8 +48,10 @@ class UI {
         let parentEl = element.parentElement.parentElement.parentElement.parentElement.parentElement;
         let siblingElement = element.parentElement.parentElement.parentElement.parentElement.nextElementSibling;
         inputField.addEventListener('submit', (e)=>{
+            //e.preventDefault();
             try {
                 Store.replyToComment(id);
+                
             } catch (error) {
                 console.log(error)
             }
@@ -54,9 +59,10 @@ class UI {
 
         if (replyForm == false){  
             parentEl.insertBefore(inputField, siblingElement);
+            replyForm = true
         }else{
             let form_input = document.querySelector('.container__form-reply');
-            form_input.remove();
+            form_input.style.display = "none";
             let inputField = document.createElement('form');
             inputField.classList = 'container__form br-1 container__form-reply';
             inputField.innerHTML = createElements.CreateInputField('./images/avatars/image-juliusomo.png', info);
@@ -64,9 +70,10 @@ class UI {
             let parentEl = element.parentElement.parentElement.parentElement.parentElement.parentElement;
             let siblingElement = element.parentElement.parentElement.parentElement.parentElement.nextElementSibling;
             parentEl.insertBefore(inputField, siblingElement);
+            replyForm = true
 
         }
-        replyForm = true
+        
     }
 
     static removeComment(id){
@@ -74,14 +81,14 @@ class UI {
         let modal = document.querySelector('.modal');
         modal.style.display = 'flex';
 
-        //add a event to delete or cancel button
+        //add an event to delete or cancel button
         let btnevent = document.querySelector('.modal__content-buttons');
         btnevent.addEventListener('click', (e)=>{
             if (e.target.classList.contains('modal__content-buttons_delete')){
                 Store.deleteComment(id);
-                let element = document.getElementById(id);
-                let parentEl = element.parentElement.parentElement.parentElement.parentElement;
-                parentEl.remove();
+                // let element = document.getElementById(id);
+                // let parentEl = element.parentElement.parentElement.parentElement.parentElement;
+                // //parentEl.remove();
                 UI.displayComments()
                 modal.style.display = 'none'; 
             }else{
@@ -127,6 +134,8 @@ class UI {
         UI.insertReplyField(id, info);
         let parentEl = document.getElementById(id).parentElement.parentElement.parentElement.parentElement;
         
+        
+
         if (parentEl.classList.contains('container__content')){
             parentEl.remove();
         }
@@ -155,11 +164,12 @@ class UI {
         // });
 
         //console.log(parentEl.parentElement.children);
-        for (let i = 0; i < parentEl.parentElement.children.length; i++){
-            parentEl.parentElement.children[i].style.display = "flex";
-        }
+        // for (let i = 0; i < parentEl.parentElement.children.length; i++){
+        //     parentEl.parentElement.children[i].style.display = "flex";
+        // }
+
         if (parentEl.classList.contains('container__content')){
-            parentEl.style.display = "none";
+            parentEl.remove();
         }
     }
 

@@ -1,5 +1,6 @@
 
 let replyForm = false;
+let updateForm = false;
 
 //Utility Functions
 
@@ -13,6 +14,39 @@ function sortByDate(a, b){
     return new Date(a.createdAt).valueOf() - new Date(b.createdAt).valueOf(); //subtract timestamps
 }
 
+
+function ListenToCommentForm(){
+    //Get Comments form UI
+    document.querySelector('#form_comment').addEventListener('submit', (e) => {
+        //prevent actual Values
+        e.preventDefault();
+        // Get comment form values
+        let comment = document.querySelector('#form_comment').children[1].children[0].value;
+        
+        let userComment = {
+            //Creates some random id and they should be unique 
+            "id": Math.floor((Math.random() + Math.random()) * 3456),
+            "content": comment,
+            "createdAt": new Date(),
+            "score": 0,
+            "user": {
+                "image": { 
+                "png": "./images/avatars/image-juliusomo.png",
+                "webp": "./images/avatars/image-juliusomo.webp"
+                },
+                "username": "juliusomo"
+            },
+            "replies": null
+        }
+        let res = Store.addComment(userComment); // returns 0 if not errors
+        if (res === 0){
+            UI.displayComments()
+        }else{
+            alert('something happened');
+        };
+        
+    });
+}
 
 
 let http = new XMLHttpRequest();
@@ -32,39 +66,6 @@ http.onload = function(){
             UI.displayComments();
         }
 
-        //Get Comments form UI
-        document.querySelector('#form_comment').addEventListener('submit', (e) => {
-            //prevent actual Values
-            e.preventDefault();
-            // Get comment form values
-            let comment = document.querySelector('#form_comment').children[1].children[0].value;
-            
-
-            if (comment ===''){
-                alert('Please fill all fields'); // this will execute if the required property is removed on the browser
-            } else{
-                userComment = {
-                    //Creates some random id and they should be unique 
-                    "id": Math.floor((Math.random() + Math.random()) * 3456),
-                    "content": comment,
-                    "createdAt": new Date(),
-                    "score": 0,
-                    "user": {
-                        "image": { 
-                        "png": "./images/avatars/image-juliusomo.png",
-                        "webp": "./images/avatars/image-juliusomo.webp"
-                        },
-                        "username": "juliusomo"
-                    },
-                    "replies": null
-                }
-                let res = Store.addComment(userComment); // returns 0 if not errors
-                if (res === 0){
-                    UI.displayComments()
-                }else{
-                    alert('something happened');
-                };
-            }
-        });
+        ListenToCommentForm();
     }
 }
