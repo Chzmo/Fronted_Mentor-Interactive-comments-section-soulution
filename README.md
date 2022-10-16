@@ -30,7 +30,7 @@ Users should be able to:
 
 ### Screenshot
 
-![](./images/Firefox_Screenshot_2022-10-13T19-10-13.804Z.png)
+![](./images/Firefox_Screenshot_2022-10-16T22-31-30.788Z.png)
 
 ### Links
 
