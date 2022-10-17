@@ -134,7 +134,7 @@ body {
 
 .container {
   max-width: 760px;
-  margin: 3rem auto 0;
+  margin: 4rem auto 0;
   padding: 10px 10px;
   display: flex;
   flex-direction: column;
